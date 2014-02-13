@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    @System.Web.Optimization.Styles.Render("~/Content/css")
+    <title>TFSCruiser</title>
+    @System.Web.Optimization.Scripts.Render("~/Scripts/html")
+</head>
+<body>
+    <header role="banner">
+        <h1>TFS Cruiser</h1>
+    </header>
+    <nav>
+        <ul id="bar">
+            <li><a href="/Builds/Index">Home</a></li>
+        </ul>
+    </nav>
+    <main role="main" id="main">
+        <article>
+            <h2>@RenderSection("title")</h2>
+            @RenderBody()
+        </article>
+    </main>
+    @System.Web.Optimization.Scripts.Render("~/Scripts/app")
+</body>
+</html>

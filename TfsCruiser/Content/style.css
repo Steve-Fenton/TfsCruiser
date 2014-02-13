@@ -1,0 +1,181 @@
+﻿*
+{
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+html, article
+{
+    height: 100%;
+}
+
+nav
+{
+    height: 10%;
+    overflow: hidden;
+}
+
+    nav ul
+    {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    nav li
+    {
+        display: inline-block;
+        padding: 0.2em 0.5em;
+        background-color: rgba(39, 48, 220, 0.80);
+    }
+
+    nav a {
+        width: 100%;
+        height: 100%;
+    }
+
+main
+{
+    display: block;
+    height: 90%;
+}
+
+body
+{
+    height: 100%;
+    background-color: #000;
+    color: #FFF;
+    font-family: 'Segoe UI', 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    margin: 0;
+    font-size: 18px;
+    overflow: hidden;
+}
+
+a
+{
+    text-decoration: none;
+    color: #FFF;
+}
+
+    a:hover, a:focus
+    {
+        text-decoration: underline;
+    }
+
+h1, h2, h3, h4, h5, h6
+{
+    font-weight: normal;
+}
+
+h1, h2
+{
+    display: none;
+}
+
+h3
+{
+    margin: 0.2em 0;
+    padding: 0;
+}
+
+ul
+{
+    padding: 0;
+}
+
+.TfsProject
+{
+    float: left;
+    width: 49.5%;
+    height: 25%;
+    margin: 0.25%;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+    .TfsProject.Succeeded
+    {
+        background-color: rgba(87, 174, 71, 0.80);
+    }
+
+    .TfsProject.PartiallySucceeded
+    {
+        background-color: rgba(255, 106, 0, 0.80);
+    }
+
+    .TfsProject.Failed
+    {
+        background-color: rgba(220, 48, 39, 0.80);
+    }
+
+    .TfsProject.Stopped
+    {
+        background-color: rgba(39, 48, 220, 0.80);
+    }
+
+    .TfsProject.Mini
+    {
+        width: 7.5%;
+        height: 3em;
+        border: 1px solid #000;
+        font-size: 0.5em;
+    }
+
+        .TfsProject.Mini.Succeeded
+        {
+            background-color: rgba(87, 174, 71, 1);
+        }
+
+        .TfsProject.Mini.PartiallySucceeded
+        {
+            background-color: rgba(255, 106, 0, 1);
+        }
+
+        .TfsProject.Mini.Failed
+        {
+            background-color: rgba(220, 48, 39, 1);
+        }
+
+        .TfsProject.Mini.Stopped
+        {
+            background-color: rgba(39, 48, 220, 1);
+        }
+
+    .TfsProject h3
+    {
+        text-align: left;
+    }
+
+.Status
+{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+    .Status.Succeeded
+    {
+        display: none;
+    }
+
+
+#NotifierOverlayAlert
+{
+    background-color: rgba(39, 48, 220, 0.5);
+    color: #FFF;
+    text-align: center;
+}
+
+    #NotifierOverlayAlert.messageTypeError
+    {
+        background-color: rgba(220, 48, 39, 0.5);
+    }
+
+    #NotifierOverlayAlert.messageTypeSuccess
+    {
+        background-color: rgba(0, 0, 0, 0.5);
+    }

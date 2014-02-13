@@ -1,0 +1,21 @@
+﻿@model TfsCruiser.Models.BuildStatusModel
+@foreach (var project in Model.Projects)
+{ 
+    <div class="TfsProject @project.Status" title="@project.Name" style="height: @Model.BoxHeightPercentage%;">
+        <h3>@Html.ActionLink(project.DefinitionName, "Index", "Builds", new { project = project.Name, build = project.DefinitionName }, null) (@Html.ActionLink(project.Name, "Index", "Builds", new { project = project.Name }, null))</h3>
+        <ul>
+            <li class="TfsProject Mini @project.Status" title="@project.FinishTime.ToString() - @project.Status">
+                @project.Duration
+            </li>
+            @foreach (var run in project.Runs)
+            {
+                <li class="TfsProject Mini @run.Status" title="@run.FinishTime.ToString() - @run.Status">
+                    @run.Duration
+                </li>
+            }
+        </ul>
+        <div class="Status @project.Status">
+            @project.Status
+        </div>
+    </div>
+}
