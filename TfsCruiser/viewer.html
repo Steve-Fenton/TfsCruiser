@@ -67,7 +67,8 @@
     */
 
     var Page = (function () {
-        var public = function(url) {
+        var public = function (url, duration) {
+            this.duration = duration || (30 * 1000);
             this.url = url;
             this.displayElement = null;
         }
@@ -86,7 +87,6 @@
     }());
     
     var Rotisserie = (function () {
-        var _duration = 30000;
         var _cssDuration = 1000;
     
         var public = function(pages, containerId) {
@@ -131,7 +131,7 @@
                 window.setTimeout(function () {
                     pos++;
                     _this.run(pos);
-                }, _duration);
+                }, page.duration);
             };
             
             // Add the new slide to the page
