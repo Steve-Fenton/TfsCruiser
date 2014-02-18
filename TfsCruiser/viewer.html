@@ -35,6 +35,23 @@
             transition: all 1s ease;
             overflow: hidden;
         }
+
+        #container .spin {
+            animation-name: spin;
+            animation-duration: 1000ms;
+            animation-iteration-count: 1;
+            animation-timing-function: linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(-360deg);
+            }
+        }
     </style>
  </head>
  <body>
@@ -93,6 +110,7 @@
             
             this.previousElement = this.currentElement;
             this.currentElement = page.getDisplayElement();
+            this.currentElement.className = '';
             
             // Set up the onload handler before adding the slide to the page
             this.currentElement.onload = function () {
@@ -107,6 +125,7 @@
                 
                 // Animate in the new slide (CSS animation)
                 _this.currentElement.style.left = '0';
+                _this.currentElement.className = 'spin';
             
                 // Do it all again in a little while
                 window.setTimeout(function () {
