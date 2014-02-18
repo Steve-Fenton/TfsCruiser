@@ -219,6 +219,7 @@
     <Content Include="Scripts\references.min.js">
       <DependentUpon>references.ts</DependentUpon>
     </Content>
+    <Content Include="viewer.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

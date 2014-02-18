@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Viewer</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+        }
+        
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            position: absolute;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+        }
+        
+        #container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            background-color: #FFF;
+            left: 0;
+            top: 0;
+            display: inline-block;
+            transition: all 1s ease;
+            overflow: hidden;
+        }
+    </style>
+ </head>
+ <body>
+    <div id="container">
+        
+    </div>
+<script>
+(function () {
+    /*
+        Rotisserie, by Steve Fenton
+        (C) 2014 Steve Fenton, released under an Apache 2 license
+        http://www.apache.org/licenses/LICENSE-2.0
+    */
+
+    var Page = (function () {
+        var public = function(url) {
+            this.url = url;
+            this.displayElement = null;
+        }
+        
+        public.prototype.getDisplayElement = function () {
+            if (this.displayElement == null) {
+                this.displayElement = document.createElement('iframe');
+                this.displayElement.id = this.id;
+                this.displayElement.src = this.url;
+            }
+            
+            return this.displayElement;
+        };
+    
+        return public;
+    }());
+    
+    var Rotisserie = (function () {
+        var _duration = 30000;
+        var _cssDuration = 1000;
+    
+        var public = function(pages, containerId) {
+            this.pages = pages;
+            this.container = document.getElementById(containerId);
+            this.currentElement = null;
+            this.previousElement = null;
+        }
+        
+        public.prototype.run = function (pos) {
+            if (typeof pos === 'undefined') {
+                pos = 0;
+            }
+            
+            if (pos >= this.pages.length) {
+                pos = 0;
+            }
+            
+            var page = this.pages[pos];
+            _this = this;
+            
+            this.previousElement = this.currentElement;
+            this.currentElement = page.getDisplayElement();
+            
+            // Set up the onload handler before adding the slide to the page
+            this.currentElement.onload = function () {
+                // Clean up previous slide
+                if (_this.previousElement) {
+                    _this.previousElement.style.left = '-100%';
+                    
+                    window.setTimeout(function () {
+                        _this.container.removeChild(_this.previousElement);
+                    }, _cssDuration);
+                }
+                
+                // Animate in the new slide (CSS animation)
+                _this.currentElement.style.left = '0';
+            
+                // Do it all again in a little while
+                window.setTimeout(function () {
+                    pos++;
+                    _this.run(pos);
+                }, _duration);
+            };
+            
+            // Add the new slide to the page
+            this.container.appendChild(this.currentElement);
+            this.currentElement.style.left = '100%';
+        };
+    
+        return public;
+    }());
+
+    // Just add URLs here
+    var pages = [
+        new Page('http://YourTfsCruiserUrl/'),
+        new Page('http://YourBlogAddress/'),
+        new Page('http://emergencykitten.com/')
+    ];
+    
+    var rotisserie = new Rotisserie(pages, 'container');
+    rotisserie.run();
+}());
+</script>
+ </body>
+</html>
