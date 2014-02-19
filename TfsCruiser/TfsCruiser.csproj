@@ -161,6 +161,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\ecto.mp3" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <TypeScriptCompile Include="Scripts\app.ts" />
