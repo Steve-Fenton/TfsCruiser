@@ -98,7 +98,9 @@ namespace TfsCommunicator
                 Name = build.TeamProject,
                 Status = build.Status.ToString(),
                 StartTime = build.StartTime,
-                FinishTime = build.FinishTime
+                FinishTime = build.FinishTime,
+                BuildNumber = build.BuildNumber,
+                RequestedFor = build.RequestedFor
             };
             return project;
         }
