@@ -85,6 +85,22 @@ ul
     padding: 0;
 }
 
+.history {
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.info {
+    font-size: 0.8em;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: left;
+}
+
 .TfsProject
 {
     float: left;
@@ -119,10 +135,14 @@ ul
 
     .TfsProject.Mini
     {
-        width: 7.5%;
-        height: 3em;
-        border: 1px solid #000;
+        width: 8%;
+        height: 1em;
+        border: none;
         font-size: 0.5em;
+        list-style: none;
+        float: none;
+        display: inline-block;
+        margin: 0;
     }
 
         .TfsProject.Mini.Succeeded

@@ -24,7 +24,7 @@ namespace TfsCruiser.Controllers
             }
             if (!int.TryParse(ConfigurationManager.AppSettings["MaxRunsToDisplay"], out this.maxRunsToDisplay))
             {
-                this.maxRunsToDisplay = 11;
+                this.maxRunsToDisplay = 10;
             }
 
             ICredentialsProvider credentialsProvider = new CredentialsProvider(username, password, domain);

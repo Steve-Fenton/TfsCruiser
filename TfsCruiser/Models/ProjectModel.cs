@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using TfsCommunicator;
 
@@ -14,6 +15,8 @@ namespace TfsCruiser.Models
         public string DefinitionName { get; set; }
         public string Name { get; set; }
         public string Status { get; set; }
+        public string BuildNumber { get; set; }
+        public string RequestedFor { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime FinishTime { get; set; }
         public List<ProjectModel> Runs { get; set; }
@@ -25,7 +28,7 @@ namespace TfsCruiser.Models
             {
                 if (this.duration == 0d)
                 {
-                    this.duration = Math.Round((FinishTime - StartTime).TotalMinutes, 1);
+                    this.duration = Math.Round((FinishTime - StartTime).TotalMinutes, 0);
                 }
                 return this.duration;
             }
@@ -40,12 +43,16 @@ namespace TfsCruiser.Models
                 Status = project.Status,
                 StartTime = project.StartTime,
                 FinishTime = project.FinishTime,
+                BuildNumber = project.BuildNumber,
+                RequestedFor = project.RequestedFor
             };
 
             foreach (var run in project.Runs)
             {
                 projectModel.Runs.Add(ProjectModel.Map(run));
             }
+
+            projectModel.Runs = projectModel.Runs.OrderBy(r => r.FinishTime).ToList();
 
             return projectModel;
         }
