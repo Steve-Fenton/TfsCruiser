@@ -143,6 +143,12 @@ ul
         float: none;
         display: inline-block;
         margin: 0;
+        cursor: pointer;
+    }
+
+    .TfsProject.Mini:hover
+    {
+        opacity: 0.3;
     }
 
         .TfsProject.Mini.Succeeded
