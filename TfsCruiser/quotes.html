@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Viewer</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #FFF;
+            overflow: hidden;
+            font-family: Georgia, serif;
+        }
+
+        blockquote {
+            margin: 0 5em;
+        }
+
+        blockquote p {
+            margin: 0;
+            font-size: 4em;
+            text-align: center;
+        }
+
+            blockquote footer {
+                font-size: 2em;
+                text-align: right;
+            }
+
+        #container {
+            width: 100%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+
+    </div>
+    <script>
+(function () {
+    /*
+        Random Quotes, by Steve Fenton
+        (C) 2014 Steve Fenton, released under an Apache 2 license
+        http://www.apache.org/licenses/LICENSE-2.0
+    */
+
+    var Quote = (function () {
+        var public = function (attributedTo, quote) {
+            this.quote = quote;
+            this.attributedTo = attributedTo;
+            this.displayElement = null;
+        }
+
+        public.prototype.getDisplayElement = function () {
+            if (this.displayElement == null) {
+                this.displayElement = document.createElement('blockquote');
+                
+                var quote = document.createElement('p');
+                quote.innerHTML = this.quote;
+
+                var citation = document.createElement('cite');
+                citation.innerHTML = '&mdash;' + this.attributedTo;
+
+                var footer = document.createElement('footer');
+                footer.appendChild(citation);
+
+                this.displayElement.appendChild(quote);
+                this.displayElement.appendChild(footer);
+            }
+
+            return this.displayElement;
+        };
+
+        return public;
+    }());
+
+    var RandomQuote = (function () {
+        var public = function (quotes, containerId) {
+            this.quotes = quotes;
+            this.container = document.getElementById(containerId);
+        }
+
+        public.prototype.getRandomQuote = function() {
+            var index = Math.floor(Math.random() * this.quotes.length);
+            var quote = this.quotes[index];
+            this.container.innerHTML = '';
+            this.container.appendChild(quote.getDisplayElement());
+
+            var contentHeight = this.container.offsetHeight;
+            var bodyHeight = document.body.offsetHeight;
+
+            var containerPosition = (bodyHeight - contentHeight) / 2;
+
+            this.container.style.marginTop = containerPosition + 'px';
+        }
+
+        return public;
+    }());
+
+    // Just add Quotes here (author, quote)
+    var quotes = [
+        new Quote('Alan Perlis', 'There are two ways to write error-free programs; only the third one works. '),
+        new Quote('Andrew Hunt and David Thomas ', 'It’s not at all important to get it right the first time. It’s vitally important to get it right the last time.'),
+        new Quote('Bill Gates', 'Measuring programming progress by lines of code is like measuring aircraft building progress by weight.'),
+        new Quote('Brian Kernighan', 'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'),
+        new Quote('Bjarne Stroustrup', 'I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone.'),
+        new Quote('Charles Babbage', 'On two occasions I have been asked, “Pray, Mr. Babbage, if you put into the machine wrong figures, will the right answers come out?” I am not able rightly to apprehend the kind of confusion of ideas that could provoke such a question.'),
+        new Quote('David Parnas', 'Copy and paste is a design error.'),
+        new Quote('Donald Knuth', 'Computers are good at following instructions, but not at reading your mind.'),
+        new Quote('Donald Knuth', 'The most important thing in a programming language is the name. A language will not succeed without a good name. I have recently invented a very good name, and now I am looking for a suitable language.'),
+        new Quote('Douglas Hofstadter', 'Hofstadter’s Law: It always takes longer than you expect, even when you take into account Hofstadter’s Law.'),
+        new Quote('Edsger W. Dijkstra', 'Testing can only prove the presence of bugs, not their absence.'),
+        new Quote('Erik Naggum', 'Languages shape the way we think, or don’t.'),
+        new Quote('Gordon Bell', 'The cheapest, fastest and most reliable components of a computer system are those that aren’t there.'),
+        new Quote('Gordon Letwin', 'One in a million is next Tuesday.'),
+        new Quote('Grace Hopper', 'To me programming is more than an important practical art. It is also a gigantic undertaking in the foundations of knowledge.'),
+        new Quote('Grace Hopper', '[After removing a moth from the Harvard MK I]... From then on, when anything went wrong with a computer, we said it had bugs in it. '),
+        new Quote('Jamie Zawinski', 'Some people, when confronted with a problem, think “I know, I’ll use regular expressions.” Now they have two problems.'),
+        new Quote('John Johnson', 'First, solve the problem. Then, write the code.'),
+        new Quote('Joshua Bloch', 'The cleaner and nicer the program, the faster it’s going to run. And if it doesn’t, it’ll be easy to make it fast.'),
+        new Quote('Larry Flon', 'There is no programming language, no matter how structured, that will prevent programmers from making bad programs.'),
+        new Quote('Martin Fowler', 'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.'),
+        new Quote('Ralph Johnson', 'Before software can be reusable it first has to be usable.'),
+        new Quote('Richard Hamming', 'The purpose of computing is insight, not numbers.'),
+        new Quote('Steve Fenton', 'jQuery is the drinking-problem of the World Wide Web.'),
+        new Quote('Steve McConnell', 'It’s hard enough to find an error in your code when you’re looking for it; it’s even harder when you’ve assumed your code is error-free.'),
+        new Quote('Steve McConnell', 'Good code is its own best documentation. As you’re about to add a comment, ask yourself, “How can I improve the code so that this comment isn’t needed?” Improve the code and then document it to make it even clearer.'),
+        new Quote('Tom Cargill', 'The first 90% of the code accounts for the first 90% of the development time. The remaining 10% of the code accounts for the other 90% of the development time.'),
+        new Quote('Tony Hoare', 'There are two ways of constructing a software design. One way is to make it so simple that there are obviously no deficiencies. And the other way is to make it so complicated that there are no obvious deficiencies.'),
+        new Quote('Yoggi Berra', 'In theory, theory and practice are the same. In practice, they’re not.'),
+        //new Quote('', ''),
+    ];
+
+    var quotes = new RandomQuote(quotes, 'container');
+    quotes.getRandomQuote();
+}());
+    </script>
+</body>
+</html>
