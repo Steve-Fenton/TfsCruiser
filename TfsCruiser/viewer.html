@@ -84,13 +84,13 @@
     });
 
     var Page = (function () {
-        var public = function (url, duration) {
+        var publicProperties = function (url, duration) {
             this.duration = duration || (30 * 1000);
             this.url = url;
             this.displayElement = null;
         }
 
-        public.prototype.getDisplayElement = function () {
+        publicProperties.prototype.getDisplayElement = function () {
             if (this.displayElement == null) {
                 this.displayElement = document.createElement('iframe');
                 this.displayElement.id = this.id;
@@ -100,21 +100,21 @@
             return this.displayElement;
         };
 
-        return public;
+        return publicProperties;
     }());
 
     var Rotisserie = (function () {
         var _cssDuration = 1000;
         var _timer;
 
-        var public = function (pages, containerId) {
+        var publicProperties = function (pages, containerId) {
             this.pages = pages;
             this.container = document.getElementById(containerId);
             this.currentElement = null;
             this.previousElement = null;
         }
 
-        public.prototype.run = function (pos) {
+        publicProperties.prototype.run = function (pos) {
             if (typeof pos === 'undefined') {
                 pos = 0;
             }
@@ -164,14 +164,15 @@
             this.currentElement.style.left = '100%';
         };
 
-        return public;
+        return publicProperties;
     }());
 
     // Just add URLs here
     var pages = [
         new Page('http://YourTfsCruiserUrl/'),
         new Page('http://YourBlogAddress/'),
-        new Page('quotes.html', For(10).seconds())
+        new Page('quotes.html', For(10).seconds()),
+        new Page('quotes.html', For(10).seconds()),
     ];
 
     var rotisserie = new Rotisserie(pages, 'container');

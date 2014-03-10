@@ -49,13 +49,13 @@
     */
 
     var Quote = (function () {
-        var public = function (attributedTo, quote) {
+        var publicProperties = function (attributedTo, quote) {
             this.quote = quote;
             this.attributedTo = attributedTo;
             this.displayElement = null;
         }
 
-        public.prototype.getDisplayElement = function () {
+        publicProperties.prototype.getDisplayElement = function () {
             if (this.displayElement == null) {
                 this.displayElement = document.createElement('blockquote');
                 
@@ -75,30 +75,34 @@
             return this.displayElement;
         };
 
-        return public;
+        return publicProperties;
     }());
 
     var RandomQuote = (function () {
-        var public = function (quotes, containerId) {
+        var publicProperties = function (quotes, containerId) {
             this.quotes = quotes;
             this.container = document.getElementById(containerId);
         }
 
-        public.prototype.getRandomQuote = function() {
-            var index = Math.floor(Math.random() * this.quotes.length);
-            var quote = this.quotes[index];
-            this.container.innerHTML = '';
-            this.container.appendChild(quote.getDisplayElement());
-
-            var contentHeight = this.container.offsetHeight;
+        var setContainerVerticalPosition = function (container) {
+            var contentHeight = container.offsetHeight;
             var bodyHeight = document.body.offsetHeight;
 
             var containerPosition = (bodyHeight - contentHeight) / 2;
-
-            this.container.style.marginTop = containerPosition + 'px';
+            container.style.marginTop = containerPosition + 'px';
         }
 
-        return public;
+        publicProperties.prototype.showRandomQuote = function () {
+            var index = Math.floor(Math.random() * this.quotes.length);
+            var quote = this.quotes[index];
+
+            this.container.innerHTML = '';
+            this.container.appendChild(quote.getDisplayElement());
+
+            setContainerVerticalPosition(this.container);
+        }
+
+        return publicProperties;
     }());
 
     // Just add Quotes here (author, quote)
@@ -141,6 +145,7 @@
         new Quote('Richard Hamming', 'The purpose of computing is insight, not numbers.'),
         new Quote('Robert Heinlein', 'Everything is theoretically impossible, until it is done.'),
         new Quote('Steve Fenton', 'jQuery is the drinking-problem of the World Wide Web.'),
+        new Quote('Steve Fenton', '“What do we do when someone breaks the build?” - Help them fix it. “What do we do if they keep on breaking the build?” - Get better at helping.'),
         new Quote('Steve McConnell', 'The problem with quick and dirty, is that the dirty remains long after the quick has been forgotten'),
         new Quote('Steve McConnell', 'It’s hard enough to find an error in your code when you’re looking for it; it’s even harder when you’ve assumed your code is error-free.'),
         new Quote('Steve McConnell', 'Good code is its own best documentation. As you’re about to add a comment, ask yourself, “How can I improve the code so that this comment isn’t needed?” Improve the code and then document it to make it even clearer.'),
@@ -153,7 +158,7 @@
     ];
 
     var quotes = new RandomQuote(quotes, 'container');
-    quotes.getRandomQuote();
+    quotes.showRandomQuote();
 }());
     </script>
 </body>
