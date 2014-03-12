@@ -106,29 +106,47 @@
     var Rotisserie = (function () {
         var _cssDuration = 1000;
         var _timer;
+        var _pos = 0;
 
         var publicProperties = function (pages, containerId) {
             this.pages = pages;
             this.container = document.getElementById(containerId);
             this.currentElement = null;
             this.previousElement = null;
-        }
+        };
+
+        publicProperties.prototype.enableSpaceToSkip = function () {
+            // `this` shim
+            var _this = this;
+            var SPACE_KEY = 32;
+
+            window.addEventListener('keypress', function (e) {
+                var key = e.which ? e.which : e.keyCode;
+                if (key === SPACE_KEY) {
+                    _this.skip.call(_this);
+                }
+            });
+        };
+
+        publicProperties.prototype.skip = function () {
+            window.clearTimeout(_timer);
+            _pos++;
+            this.run(_pos);
+        };
 
         publicProperties.prototype.run = function (pos) {
-            if (typeof pos === 'undefined') {
-                pos = 0;
+            if (_pos >= this.pages.length) {
+                _pos = 0;
             }
 
-            if (pos >= this.pages.length) {
-                pos = 0;
-            }
-
-            var page = this.pages[pos];
-            _this = this;
+            var page = this.pages[_pos];
 
             this.previousElement = this.currentElement;
             this.currentElement = page.getDisplayElement();
             this.currentElement.className = '';
+
+            // `this` shim
+            var _this = this;
 
             // Set up the onload handler before adding the slide to the page
             this.currentElement.onload = function () {
@@ -147,16 +165,13 @@
 
                 // Do it all again in a little while
                 _timer = window.setTimeout(function () {
-                    pos++;
-                    _this.run(pos);
+                    _this.skip.call(_this);
                 }, page.duration);
             };
 
             // Set up the oneror handler before adding the slide to the page
             this.currentElement.onerror = function () {
-                window.clearTimeout(_timer);
-                pos++;
-                _this.run(pos);
+                _this.skip.call(_this);
             };
 
             // Add the new slide to the page
@@ -176,6 +191,7 @@
     ];
 
     var rotisserie = new Rotisserie(pages, 'container');
+    rotisserie.enableSpaceToSkip();
     rotisserie.run();
 }());
     </script>
