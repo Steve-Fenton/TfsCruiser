@@ -5,6 +5,7 @@
     @System.Web.Optimization.Styles.Render("~/Content/css")
     <title>TFSCruiser</title>
     @System.Web.Optimization.Scripts.Render("~/Scripts/html")
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
     <header role="banner">
@@ -21,6 +22,6 @@
             @RenderBody()
         </article>
     </main>
-    @System.Web.Optimization.Scripts.Render("~/Scripts/app")
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
