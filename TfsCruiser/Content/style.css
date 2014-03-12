@@ -205,3 +205,9 @@ ul
     {
         background-color: rgba(0, 0, 0, 0.5);
     }
+
+#resultsIndicator
+{
+    float:left;
+    padding-top: 40px;
+}
