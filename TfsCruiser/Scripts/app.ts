@@ -1,5 +1,9 @@
 /// <reference path="references.ts" />
-(function() {
+(function () {
+    // If you have installed TfsCruiser in a sub-directory of your website,
+    // you must put the directory name here, for example:
+    // var appName = '/MyDir';
+    var appName = '';
     var overlay = new Notifier.Overlay();
     var interval;
     var updateSeconds = 60;
@@ -32,9 +36,9 @@
         var address = document.location.href;
 
         if (address.indexOf('/Builds/Index') > -1) {
-            address = address.replace('/Index', '/Update');
+            address = address.replace('/Builds/Index', '/Builds/Update');
         } else {
-            address = location.protocol + '//' + location.hostname + (location.port && ':' + location.port) + '/Builds/Update';
+            address = location.protocol + '//' + location.hostname + (location.port && ':' + location.port) + appName + '/Builds/Update';
         }
 
         return address;
