@@ -3,6 +3,7 @@ using Microsoft.TeamFoundation.Client;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net;
 
 namespace TfsCommunicator
 {
@@ -10,9 +11,9 @@ namespace TfsCommunicator
     public class BuildCommunicator : IBuildCommunicator
     {
         private string tfsServerAddress;
-        private ICredentialsProvider credentialsProvider;
+        private NetworkCredential credentialsProvider;
 
-        public BuildCommunicator(string tfsServerAddress, ICredentialsProvider credentialsProvider)
+        public BuildCommunicator(string tfsServerAddress, NetworkCredential credentialsProvider)
         {
             this.tfsServerAddress = tfsServerAddress;
             this.credentialsProvider = credentialsProvider;
@@ -70,8 +71,13 @@ namespace TfsCommunicator
 
         private IBuildServer GetBuildServer()
         {
-            var tfs = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(new Uri(tfsServerAddress), credentialsProvider);
-            tfs.EnsureAuthenticated();
+            BasicAuthCredential basicCredentials = new BasicAuthCredential(credentialsProvider);
+            TfsClientCredentials tfsCredentials = new TfsClientCredentials(basicCredentials);
+            tfsCredentials.AllowInteractive = false;
+
+            var tfs = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(new Uri(tfsServerAddress));
+            tfs.ClientCredentials = tfsCredentials;
+            tfs.Authenticate();
 
             IBuildServer buildServer = tfs.GetService<IBuildServer>();
             return buildServer;

@@ -25,9 +25,9 @@ module Ajax {
         private callbacks: { (s: IAjaxResponse): any; }[] = [];
         private defaultCallback: { (s: IAjaxResponse): any; } = null;
         private requestObject: any = {};
-        private isComplete: bool = false;
+        private isComplete: boolean = false;
 
-        constructor(httpVerb: string, private uri: string, private isAsync: bool = true) {
+        constructor(httpVerb: string, private uri: string, private isAsync: boolean = true) {
             this.httpVerb = httpVerb.toUpperCase();
             this.setRequestObject();
         }

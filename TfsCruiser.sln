@@ -1,28 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfsCruiser", "TfsCruiser\TfsCruiser.csproj", "{8F4D57C1-235A-467C-B718-7D22C65EDB78}"
-EndProject
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfsCommunicator", "TfsCommunicator\TfsCommunicator.csproj", "{773935DB-12C0-407B-BCE6-C99AA7186862}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfsCruiser.Tests", "TfsCruiser.Tests\TfsCruiser.Tests.csproj", "{A47B60A6-73C2-4679-93F7-40CEE2B417C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TfsCruiser", "TfsCruiser\TfsCruiser.csproj", "{DC0587E1-FCB9-482A-B6D2-CC8C8C289987}"
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = TfsCommunicator\\TfsCommunicator.csproj
-		SccProjectName1 = TfsCommunicator
-		SccLocalPath1 = TfsCommunicator
-		SccProjectUniqueName2 = TfsCruiser.Tests\\TfsCruiser.Tests.csproj
-		SccProjectName2 = TfsCruiser.Tests
-		SccLocalPath2 = TfsCruiser.Tests
-		SccProjectUniqueName3 = TfsCruiser\\TfsCruiser.csproj
-		SccProjectName3 = TfsCruiser
-		SccLocalPath3 = TfsCruiser
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
@@ -30,14 +17,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8F4D57C1-235A-467C-B718-7D22C65EDB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F4D57C1-235A-467C-B718-7D22C65EDB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F4D57C1-235A-467C-B718-7D22C65EDB78}.Debug|x86.ActiveCfg = Debug|x86
-		{8F4D57C1-235A-467C-B718-7D22C65EDB78}.Debug|x86.Build.0 = Debug|x86
-		{8F4D57C1-235A-467C-B718-7D22C65EDB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F4D57C1-235A-467C-B718-7D22C65EDB78}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F4D57C1-235A-467C-B718-7D22C65EDB78}.Release|x86.ActiveCfg = Release|x86
-		{8F4D57C1-235A-467C-B718-7D22C65EDB78}.Release|x86.Build.0 = Release|x86
 		{773935DB-12C0-407B-BCE6-C99AA7186862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{773935DB-12C0-407B-BCE6-C99AA7186862}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{773935DB-12C0-407B-BCE6-C99AA7186862}.Debug|x86.ActiveCfg = Debug|x86
@@ -54,6 +33,12 @@ Global
 		{A47B60A6-73C2-4679-93F7-40CEE2B417C9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A47B60A6-73C2-4679-93F7-40CEE2B417C9}.Release|x86.ActiveCfg = Release|x86
 		{A47B60A6-73C2-4679-93F7-40CEE2B417C9}.Release|x86.Build.0 = Release|x86
+		{DC0587E1-FCB9-482A-B6D2-CC8C8C289987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC0587E1-FCB9-482A-B6D2-CC8C8C289987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC0587E1-FCB9-482A-B6D2-CC8C8C289987}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DC0587E1-FCB9-482A-B6D2-CC8C8C289987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC0587E1-FCB9-482A-B6D2-CC8C8C289987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC0587E1-FCB9-482A-B6D2-CC8C8C289987}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

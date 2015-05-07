@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Microsoft.TeamFoundation.Client;
 using TfsCommunicator;
 using TfsCruiser.Models;
+using System.Net;
 
 namespace TfsCruiser.Controllers
 {
@@ -27,8 +28,11 @@ namespace TfsCruiser.Controllers
                 this.maxRunsToDisplay = 10;
             }
 
-            ICredentialsProvider credentialsProvider = new CredentialsProvider(username, password, domain);
-            this.buildCommunicator = new BuildCommunicator(tfsServerAddress, credentialsProvider);
+            NetworkCredential netCred = new NetworkCredential(
+               username,
+               password);
+
+            this.buildCommunicator = new BuildCommunicator(tfsServerAddress, netCred);
         }
 
         public BuildsController(IBuildCommunicator buildCommunicator, int maxDaysToDisplay, int maxRunsToDisplay)

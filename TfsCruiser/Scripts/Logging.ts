@@ -3,9 +3,9 @@ module Logging {
         public static targetConsole = window.console;
 
         static log(message: string): void {
-            if (typeof targetConsole !== 'undefined') {
+            if (typeof Console.targetConsole !== 'undefined') {
                 message = Console.getTimeStamp() + ' ' + message;
-                targetConsole.log(message);
+                Console.targetConsole.log(message);
             }
         }
 

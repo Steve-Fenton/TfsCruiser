@@ -31,7 +31,7 @@ module Notifier {
         }
 
         private setTransition(element: HTMLElement, value: string) {
-            element.style.msTransition = 'all 0.5s ease';
+            element.style['msTransition'] = 'all 0.5s ease';
             element.style['webkitTransition'] = 'all 0.5s ease';
             element.style['MozTransition'] = 'all 0.5s ease';
             element.style['OTransition'] = 'all 0.5s ease';
