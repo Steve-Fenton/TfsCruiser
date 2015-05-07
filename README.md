@@ -15,3 +15,4 @@ Config... you just need to tell TFS Cruiser the address of your build server...
     <add key="MaxDaysToDisplay" value="4"/>
     <add key="MaxRunsToDisplay" value="11"/>
 
+You can also connect [TFS Cruiser to Visual Studio Online](https://www.stevefenton.co.uk/Content/Blog/Date/201505/Blog/Connect-TFS-Cruiser-To-Visual-Studio-Online/).
