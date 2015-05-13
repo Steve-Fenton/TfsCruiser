@@ -32,23 +32,82 @@
                 left: 0;
                 top: 0;
                 display: inline-block;
+                -moz-transition: all 1s ease;
+                -o-transition: all 1s ease;
+                -webkit-transition: all 1s ease;
                 transition: all 1s ease;
                 overflow: hidden;
             }
 
             #container .spin {
+                -moz-animation-name: spin;
+                -o-animation-name: spin;
+                -webkit-animation-name: spin;
                 animation-name: spin;
+                -moz-animation-duration: 1000ms;
+                -o-animation-duration: 1000ms;
+                -webkit-animation-duration: 1000ms;
                 animation-duration: 1000ms;
+                -moz-animation-iteration-count: 1;
+                -o-animation-iteration-count: 1;
+                -webkit-animation-iteration-count: 1;
                 animation-iteration-count: 1;
+                -moz-animation-timing-function: linear;
+                -o-animation-timing-function: linear;
+                -webkit-animation-timing-function: linear;
                 animation-timing-function: linear;
             }
 
-        @keyframes spin {
+        @-moz-keyframes spin {
             from {
-                transform: rotate(0deg);
+                -moz-transform: rotate(0);
+                -ms-transform: rotate(0);
+                -o-transform: rotate(0);
+                -webkit-transform: rotate(0);
+                transform: rotate(0);
             }
 
             to {
+                -moz-transform: rotate(-360deg);
+                -ms-transform: rotate(-360deg);
+                -o-transform: rotate(-360deg);
+                -webkit-transform: rotate(-360deg);
+                transform: rotate(-360deg);
+            }
+        }
+
+        @-webkit-keyframes spin {
+            from {
+                -moz-transform: rotate(0);
+                -ms-transform: rotate(0);
+                -o-transform: rotate(0);
+                -webkit-transform: rotate(0);
+                transform: rotate(0);
+            }
+
+            to {
+                -moz-transform: rotate(-360deg);
+                -ms-transform: rotate(-360deg);
+                -o-transform: rotate(-360deg);
+                -webkit-transform: rotate(-360deg);
+                transform: rotate(-360deg);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                -moz-transform: rotate(0);
+                -ms-transform: rotate(0);
+                -o-transform: rotate(0);
+                -webkit-transform: rotate(0);
+                transform: rotate(0);
+            }
+
+            to {
+                -moz-transform: rotate(-360deg);
+                -ms-transform: rotate(-360deg);
+                -o-transform: rotate(-360deg);
+                -webkit-transform: rotate(-360deg);
                 transform: rotate(-360deg);
             }
         }
@@ -59,141 +118,141 @@
 
     </div>
     <script>
-(function () {
-    /*
-        Rotisserie, by Steve Fenton
-        (C) 2014 Steve Fenton, released under an Apache 2 license
-        http://www.apache.org/licenses/LICENSE-2.0
-    */
+        (function () {
+            /*
+                Rotisserie, by Steve Fenton
+                (C) 2014 Steve Fenton, released under an Apache 2 license
+                http://www.apache.org/licenses/LICENSE-2.0
+            */
 
-    var For = (function (quantity) {
-        return {
-            hours: function () {
-                return this.minutes() * 60;
-            },
-            minutes: function () {
-                return this.seconds() * 60;
-            },
-            seconds: function () {
-                return this.milliseconds() * 1000;
-            },
-            milliseconds: function () {
-                return quantity;
-            }
-        };
-    });
-
-    var Page = (function () {
-        var publicProperties = function (url, duration) {
-            this.duration = duration || (30 * 1000);
-            this.url = url;
-            this.displayElement = null;
-        }
-
-        publicProperties.prototype.getDisplayElement = function () {
-            if (this.displayElement == null) {
-                this.displayElement = document.createElement('iframe');
-                this.displayElement.id = this.id;
-                this.displayElement.src = this.url;
-            }
-
-            return this.displayElement;
-        };
-
-        return publicProperties;
-    }());
-
-    var Rotisserie = (function () {
-        var _cssDuration = 1000;
-        var _timer;
-        var _pos = 0;
-
-        var publicProperties = function (pages, containerId) {
-            this.pages = pages;
-            this.container = document.getElementById(containerId);
-            this.currentElement = null;
-            this.previousElement = null;
-        };
-
-        publicProperties.prototype.enableSpaceToSkip = function () {
-            // `this` shim
-            var _this = this;
-            var SPACE_KEY = 32;
-
-            window.addEventListener('keypress', function (e) {
-                var key = e.which ? e.which : e.keyCode;
-                if (key === SPACE_KEY) {
-                    _this.skip.call(_this);
-                }
+            var For = (function (quantity) {
+                return {
+                    hours: function () {
+                        return this.minutes() * 60;
+                    },
+                    minutes: function () {
+                        return this.seconds() * 60;
+                    },
+                    seconds: function () {
+                        return this.milliseconds() * 1000;
+                    },
+                    milliseconds: function () {
+                        return quantity;
+                    }
+                };
             });
-        };
 
-        publicProperties.prototype.skip = function () {
-            window.clearTimeout(_timer);
-            _pos++;
-            this.run(_pos);
-        };
-
-        publicProperties.prototype.run = function (pos) {
-            if (_pos >= this.pages.length) {
-                _pos = 0;
-            }
-
-            var page = this.pages[_pos];
-
-            this.previousElement = this.currentElement;
-            this.currentElement = page.getDisplayElement();
-            this.currentElement.className = '';
-
-            // `this` shim
-            var _this = this;
-
-            // Set up the onload handler before adding the slide to the page
-            this.currentElement.onload = function () {
-                // Clean up previous slide
-                if (_this.previousElement) {
-                    _this.previousElement.style.left = '-100%';
-
-                    window.setTimeout(function () {
-                        _this.container.removeChild(_this.previousElement);
-                    }, _cssDuration);
+            var Page = (function () {
+                var publicProperties = function (url, duration) {
+                    this.duration = duration || (30 * 1000);
+                    this.url = url;
+                    this.displayElement = null;
                 }
 
-                // Animate in the new slide (CSS animation)
-                _this.currentElement.style.left = '0';
-                _this.currentElement.className = 'spin';
+                publicProperties.prototype.getDisplayElement = function () {
+                    if (this.displayElement == null) {
+                        this.displayElement = document.createElement('iframe');
+                        this.displayElement.id = this.id;
+                        this.displayElement.src = this.url;
+                    }
 
-                // Do it all again in a little while
-                _timer = window.setTimeout(function () {
-                    _this.skip.call(_this);
-                }, page.duration);
-            };
+                    return this.displayElement;
+                };
 
-            // Set up the oneror handler before adding the slide to the page
-            this.currentElement.onerror = function () {
-                _this.skip.call(_this);
-            };
+                return publicProperties;
+            }());
 
-            // Add the new slide to the page
-            this.container.appendChild(this.currentElement);
-            this.currentElement.style.left = '100%';
-        };
+            var Rotisserie = (function () {
+                var _cssDuration = 1000;
+                var _timer;
+                var _pos = 0;
 
-        return publicProperties;
-    }());
+                var publicProperties = function (pages, containerId) {
+                    this.pages = pages;
+                    this.container = document.getElementById(containerId);
+                    this.currentElement = null;
+                    this.previousElement = null;
+                };
 
-    // Just add URLs here
-    var pages = [
-        new Page('http://YourTfsCruiserUrl/'),
-        new Page('http://YourBlogAddress/'),
-        new Page('quotes.html', For(10).seconds()),
-        new Page('quotes.html', For(10).seconds()),
-    ];
+                publicProperties.prototype.enableSpaceToSkip = function () {
+                    // `this` shim
+                    var _this = this;
+                    var SPACE_KEY = 32;
 
-    var rotisserie = new Rotisserie(pages, 'container');
-    rotisserie.enableSpaceToSkip();
-    rotisserie.run();
-}());
+                    window.addEventListener('keypress', function (e) {
+                        var key = e.which ? e.which : e.keyCode;
+                        if (key === SPACE_KEY) {
+                            _this.skip.call(_this);
+                        }
+                    });
+                };
+
+                publicProperties.prototype.skip = function () {
+                    window.clearTimeout(_timer);
+                    _pos++;
+                    this.run(_pos);
+                };
+
+                publicProperties.prototype.run = function (pos) {
+                    if (_pos >= this.pages.length) {
+                        _pos = 0;
+                    }
+
+                    var page = this.pages[_pos];
+
+                    this.previousElement = this.currentElement;
+                    this.currentElement = page.getDisplayElement();
+                    this.currentElement.className = '';
+
+                    // `this` shim
+                    var _this = this;
+
+                    // Set up the onload handler before adding the slide to the page
+                    this.currentElement.onload = function () {
+                        // Clean up previous slide
+                        if (_this.previousElement) {
+                            _this.previousElement.style.left = '-100%';
+
+                            window.setTimeout(function () {
+                                _this.container.removeChild(_this.previousElement);
+                            }, _cssDuration);
+                        }
+
+                        // Animate in the new slide (CSS animation)
+                        _this.currentElement.style.left = '0';
+                        _this.currentElement.className = 'spin';
+
+                        // Do it all again in a little while
+                        _timer = window.setTimeout(function () {
+                            _this.skip.call(_this);
+                        }, page.duration);
+                    };
+
+                    // Set up the oneror handler before adding the slide to the page
+                    this.currentElement.onerror = function () {
+                        _this.skip.call(_this);
+                    };
+
+                    // Add the new slide to the page
+                    this.container.appendChild(this.currentElement);
+                    this.currentElement.style.left = '100%';
+                };
+
+                return publicProperties;
+            }());
+
+            // Just add URLs here
+            var pages = [
+                new Page('http://YourTfsCruiserUrl/'),
+                new Page('http://YourBlogAddress/'),
+                new Page('quotes.html', For(10).seconds()),
+                new Page('quotes.html', For(10).seconds()),
+            ];
+
+            var rotisserie = new Rotisserie(pages, 'container');
+            rotisserie.enableSpaceToSkip();
+            rotisserie.run();
+        }());
     </script>
 </body>
 </html>
