@@ -70,9 +70,11 @@ namespace TfsCommunicator
         }
 
         private IBuildServer GetBuildServer()
-        {
-            BasicAuthCredential basicCredentials = new BasicAuthCredential(credentialsProvider);
-            TfsClientCredentials tfsCredentials = new TfsClientCredentials(basicCredentials);
+        {            
+            FederatedCredential credentials = (tfsServerAddress.StartsWith("https")) ? 
+                            (FederatedCredential) new BasicAuthCredential(credentialsProvider) : new SimpleWebTokenCredential(credentialsProvider.UserName, credentialsProvider.Password);
+
+            TfsClientCredentials tfsCredentials = new TfsClientCredentials(credentials);
             tfsCredentials.AllowInteractive = false;
 
             var tfs = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(new Uri(tfsServerAddress));
