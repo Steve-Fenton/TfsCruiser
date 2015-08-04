@@ -3,6 +3,7 @@ using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.TestManagement.Client;
 using System;
 using System.Linq;
+using System.Net;
 using TfsCommunicator.Models;
 
 namespace TfsCommunicator
@@ -10,10 +11,10 @@ namespace TfsCommunicator
     public class TestCommunicator : ITestCommunicator
     {
         private string tfsServerAddress;
-        private ICredentialsProvider credentialsProvider;
+        private NetworkCredential credentialsProvider;
         private ITestManagementService testManagementService;
 
-        public TestCommunicator(string tfsServerAddress, ICredentialsProvider credentialsProvider)
+        public TestCommunicator(string tfsServerAddress, NetworkCredential credentialsProvider)
         {
             this.tfsServerAddress = tfsServerAddress;
             this.credentialsProvider = credentialsProvider;
