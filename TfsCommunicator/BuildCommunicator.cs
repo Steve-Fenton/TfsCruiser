@@ -11,12 +11,12 @@ namespace TfsCommunicator
     public class BuildCommunicator : IBuildCommunicator
     {
         private string tfsServerAddress;
-        private NetworkCredential credentialsProvider;
+        private NetworkCredential credentials;
 
-        public BuildCommunicator(string tfsServerAddress, NetworkCredential credentialsProvider)
+        public BuildCommunicator(string tfsServerAddress, NetworkCredential credentials)
         {
             this.tfsServerAddress = tfsServerAddress;
-            this.credentialsProvider = credentialsProvider;
+            this.credentials = credentials;
         }
 
         public BuildStatus GetBuildInformation(int maxDays = 5, int maxRuns = 10, string teamProject = "*", string buildDefinition = "")
@@ -70,15 +70,8 @@ namespace TfsCommunicator
         }
 
         private IBuildServer GetBuildServer()
-        {            
-            FederatedCredential credentials = (tfsServerAddress.StartsWith("https")) ? 
-                            (FederatedCredential) new BasicAuthCredential(credentialsProvider) : new SimpleWebTokenCredential(credentialsProvider.UserName, credentialsProvider.Password);
-
-            TfsClientCredentials tfsCredentials = new TfsClientCredentials(credentials);
-            tfsCredentials.AllowInteractive = false;
-
-            var tfs = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(new Uri(tfsServerAddress));
-            tfs.ClientCredentials = tfsCredentials;
+        {
+            var tfs = new TfsTeamProjectCollection(new Uri(tfsServerAddress), (ICredentials)credentials);            
             tfs.Authenticate();
 
             IBuildServer buildServer = tfs.GetService<IBuildServer>();
