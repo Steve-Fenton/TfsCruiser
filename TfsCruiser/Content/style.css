@@ -97,8 +97,9 @@ ul
 
 .info {
     font-size: 0.8em;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.5);
     text-align: left;
+    padding-left:10px;
 }
 
 .TfsProject
@@ -176,6 +177,7 @@ ul
     .TfsProject h3
     {
         text-align: left;
+        padding-left: 10px;
     }
 
 .Status
