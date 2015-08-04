@@ -105,7 +105,8 @@ ul
 {
     float: left;
     width: 49.5%;
-    height: 25%;
+    height: 35%;
+    max-height:35%;
     margin: 0.25%;
     overflow: hidden;
     text-align: center;
@@ -136,7 +137,7 @@ ul
     .TfsProject.Mini
     {
         width: 8%;
-        height: 1em;
+        height: 5em;
         border: none;
         font-size: 0.5em;
         list-style: none;
@@ -144,6 +145,7 @@ ul
         display: inline-block;
         margin: 0;
         cursor: pointer;
+        vertical-align: middle;
     }
 
     .TfsProject.Mini:hover
@@ -210,4 +212,9 @@ ul
 {
     float:left;
     padding-top: 40px;
+}
+
+#centreimage
+{
+    text-align:center;
 }

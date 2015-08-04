@@ -6,7 +6,7 @@
 @section title { DMS Tests }
 
 <div id="unitTestResults" class="TfsProject @Model.GetUnitTestResultClass()" style="height:49%;">
-    <h3>DMS Unit Tests</h3>
+    <h3>Unit Tests</h3>
     <div class="Status">@Model.UnitTestResult.CompletedTime</div>
     <p style="font-size:1.5em;"><strong>Passed Tests: @Model.UnitTestResult.PassedTestCount / @Model.UnitTestResult.TotalTestCount</strong></p>
     <p style="font-size:1em">Failed Tests: @Model.UnitTestResult.FailedTestCount / @Model.UnitTestResult.TotalTestCount</p>
@@ -14,7 +14,7 @@
 </div>
 
 <div id="automationTestResults" class="TfsProject @Model.GetAutomationTestResultClass()" style="height:49%;">
-    <h3>DMS Automation Test</h3>
+    <h3>Automation Test</h3>
     @foreach (var automationResult in Model.AutomationTestResult)
     {
         <div style="float:left; width:50%;">
@@ -27,7 +27,7 @@
 </div>
 
 <div id="codeCoverage" class="TfsProject @Model.GetCodeCoverageClass()" style="height:49%;">
-    <h3>DMS Code Coverage</h3>
+    <h3>Code Coverage</h3>
     <div class="Status">@Model.CurrentCoverage.CompletedTime</div>
     <div id="resultsView" style="float:left; width:60%;">
         <p style="font-size:2em; margin-top:0.5em"><strong>Latest Coverage</strong><br />@Math.Round(Model.CurrentCoverage.Coverage,2)%</p>
