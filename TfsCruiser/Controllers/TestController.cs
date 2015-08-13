@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TfsCommunicator;
@@ -24,8 +25,11 @@ namespace TfsCruiser.Controllers
             string username = ConfigurationManager.AppSettings["TfsUsername"];
             string password = ConfigurationManager.AppSettings["TfsPassword"];
 
-            ICredentialsProvider credentialsProvider = new CredentialsProvider(username, password, domain);
-            this.testCommunicator = new TestCommunicator(tfsServerAddress, credentialsProvider);
+            NetworkCredential netCred = new NetworkCredential(
+               username,
+               password);
+
+            this.testCommunicator = new TestCommunicator(tfsServerAddress, netCred);
         }
 
         public TestController(ITestCommunicator testCommunicator)

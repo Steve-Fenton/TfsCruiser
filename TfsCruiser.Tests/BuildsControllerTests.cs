@@ -206,11 +206,11 @@ namespace TfsCruiser.Tests
 
             var model = result.Model as BuildStatusModel;
 
-            Assert.AreEqual(definitionName, model.Projects[0].Runs[0].DefinitionName);
-            Assert.AreEqual(projectName, model.Projects[0].Runs[0].Name);
-            Assert.AreEqual(status, model.Projects[0].Runs[0].Status);
-            Assert.AreEqual(start, model.Projects[0].Runs[0].StartTime);
-            Assert.AreEqual(end, model.Projects[0].Runs[0].FinishTime);
+            Assert.AreEqual(definitionName, model.Projects[0].PreviousRuns[0].DefinitionName);
+            Assert.AreEqual(projectName, model.Projects[0].PreviousRuns[0].Name);
+            Assert.AreEqual(status, model.Projects[0].PreviousRuns[0].Status);
+            Assert.AreEqual(start, model.Projects[0].PreviousRuns[0].StartTime);
+            Assert.AreEqual(end, model.Projects[0].PreviousRuns[0].FinishTime);
         }
     }
 }

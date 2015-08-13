@@ -3,23 +3,27 @@
 @{
     bool failed = false;
     foreach (var project in Model.Projects)
-    { 
+    {
         if (project.Status == "Failed") {
             failed = true;
         }
-        var width = Math.Round((decimal)(100 / (project.Runs.Count + 1)), 6);
+        var width = Math.Round((decimal)(100 / (project.PreviousRuns.Count + 1)), 6);
         var style = "width: " + width + "%;";
         <div class="TfsProject @project.Status" title="@project.Name" style="height: @Model.BoxHeightPercentage%;">
             <h3>@Html.ActionLink(project.DefinitionName, "Index", "Builds", new { project = project.Name, build = project.DefinitionName }, null) (@Html.ActionLink(project.Name, "Index", "Builds", new { project = project.Name }, null))</h3>
             <div class="info">@project.BuildNumber for @project.RequestedFor</div>
+            <div class="info">@project.FinishTime.ToString("MMMM dd, yyyy H:mm")</div>
             <ul class="history">
-                @foreach (var run in project.Runs){<li class="TfsProject Mini @run.Status" title="@run.FinishTime.ToString() - @run.Status (Took @run.Duration) minutes" style="@style">&nbsp;</li>}<li class="TfsProject Mini @project.Status" title="@project.FinishTime.ToString() - @project.Status (Took @project.Duration minutes)" style="@style">&nbsp;</li>
+                @foreach (var run in project.PreviousRuns)
+                {<li class="TfsProject Mini @run.Status" title="@run.FinishTime.ToString() - @run.Status (Took @run.Duration) minutes" style="@style">@run.FinishTime.ToString("ddd, d")<br/>@run.FinishTime.ToString("HH:mm")<br />@run.RequestedFor.Split(' ').FirstOrDefault()</li>}
+                <li class="TfsProject Mini @project.Status" title="@project.FinishTime.ToString() - @project.Status (Took @project.Duration) minutes" style="@style">@project.FinishTime.ToString("ddd, d")<br />@project.FinishTime.ToString("HH:mm")<br />@project.RequestedFor.Split(' ').FirstOrDefault()</li>                
             </ul>
             <div class="Status @project.Status">
                 @project.Status
             </div>
         </div>
-    }
+        }
+    
 
     if (failed)
     {

@@ -9,7 +9,7 @@ namespace TfsCruiser.Models
     {
         public ProjectModel()
         {
-            Runs = new List<ProjectModel>();
+            PreviousRuns = new List<ProjectModel>();
         }
 
         public string DefinitionName { get; set; }
@@ -19,7 +19,7 @@ namespace TfsCruiser.Models
         public string RequestedFor { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime FinishTime { get; set; }
-        public List<ProjectModel> Runs { get; set; }
+        public List<ProjectModel> PreviousRuns { get; set; }
 
         private double duration;
         public double Duration
@@ -49,10 +49,10 @@ namespace TfsCruiser.Models
 
             foreach (var run in project.Runs)
             {
-                projectModel.Runs.Add(ProjectModel.Map(run));
+                projectModel.PreviousRuns.Add(ProjectModel.Map(run));
             }
 
-            projectModel.Runs = projectModel.Runs.OrderBy(r => r.FinishTime).ToList();
+            projectModel.PreviousRuns = projectModel.PreviousRuns.OrderBy(r => r.FinishTime).ToList();
 
             return projectModel;
         }
