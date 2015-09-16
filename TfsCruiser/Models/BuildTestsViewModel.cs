@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TfsCruiser.ViewModels
 {
-    public class TestsViewModel
+    public class BuildTestsViewModel
     {
         public TestResult UnitTestResult { get; set; }
         public IEnumerable<TestResult> AutomationTestResult { get; set; }

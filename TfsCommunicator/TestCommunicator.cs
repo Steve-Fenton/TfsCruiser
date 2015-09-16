@@ -1,7 +1,10 @@
 ﻿using Microsoft.TeamFoundation.Build.Client;
 using Microsoft.TeamFoundation.Client;
+using Microsoft.TeamFoundation.Server;
 using Microsoft.TeamFoundation.TestManagement.Client;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using TfsCommunicator.Models;
@@ -20,7 +23,13 @@ namespace TfsCommunicator
             this.credentialsProvider = credentialsProvider;
         }
 
-        public TestResult GetLatestTestResult(string projectName, string buildDefintionName, string serverName)
+        public List<ProjectInfo> GetProjects()
+        {
+            var projectCollection = this.GetTeamServer().GetService<ICommonStructureService>();
+            return projectCollection.ListProjects().ToList();
+        }
+
+        public TestResult GetLatestBuildTestResult(string projectName, string buildDefintionName, string serverName)
         {
             var buildDefinition = GetBuildDefinition(projectName, buildDefintionName);
             var buildDetail = GetLatestSuccessfulBuildDetail(buildDefinition);
@@ -30,7 +39,7 @@ namespace TfsCommunicator
             return TestResult.Map(buildTestResult, codeCoverage, serverName);
         }
 
-        public TestResult GetPreviousTestResult(string projectName, string buildDefintionName, string serverName)
+        public TestResult GetPreviousBuildTestResult(string projectName, string buildDefintionName, string serverName)
         {
             var buildDefinition = GetBuildDefinition(projectName, buildDefintionName);
             var buildDetail = GetPreviousDaySuccessfulBuildDetail(buildDefinition);
@@ -40,7 +49,7 @@ namespace TfsCommunicator
             return TestResult.Map(buildTestResult, codeCoverage, serverName);
         }
 
-        public TestResult GetLatestTestResultByTitle(string buildTitle, string serverName)
+        public TestResult GetLatestBuildTestResultByTitle(string buildTitle, string serverName)
         {
             var testResultServer = GetLatestBuildTestResultByTitle(buildTitle);
             return TestResult.Map(testResultServer, null, serverName);
@@ -84,7 +93,7 @@ namespace TfsCommunicator
         private ITestRun GetLatestBuildTestResultByTitle(string buildTitle)
         {
             return testManagementService.QueryTestRuns("SELECT * FROM TestRun WHERE Title Contains '" + buildTitle.Trim() + "' AND State = 'Completed'")
-                                            .OrderByDescending(t=>t.DateCompleted)
+                                            .OrderByDescending(t => t.DateCompleted)
                                             .First();
         }
 
@@ -113,6 +122,66 @@ namespace TfsCommunicator
             this.testManagementService = (ITestManagementService)tfs.GetService(typeof(ITestManagementService));
             ITestManagementTeamProject tmProject = testManagementService.GetTeamProject(teamProject);
             return tmProject;
+        }
+
+        public List<TestResult> GetLatestTestPlanStatusReport(string projectName)
+        {
+            var tfs = GetTeamServer();
+            var teamProject = GetTestManagementProject(GetTeamServer(), projectName);
+            var testPlans = teamProject.TestPlans.Query(string.Format("select * from TestPlan where StartDate<='{0}' and EndDate>='{0}'", DateTime.Now.Date.ToShortDateString()));
+            var results = new List<TestResult>();
+            foreach (var plan in testPlans)
+            {
+                results.Add(calculateTestResultByPlans(teamProject, plan));
+            }
+            return results;
+        }
+
+        private TestResult calculateTestResultByPlans(ITestManagementTeamProject project, ITestPlan testPlan)
+        {
+            var testResult = new TestResult();
+            testResult.Name = string.Format("{0} - {1}", testPlan.Iteration, testPlan.Name);
+            foreach (var testSuite in testPlan.RootSuite.SubSuites)
+            {
+
+                string queryForTestPointsForSpecificTestSuite = string.Format(CultureInfo.InvariantCulture, "SELECT * FROM TestPoint WHERE SuiteId = {0}", testSuite.Id);
+                var testPoints = testPlan.QueryTestPoints(queryForTestPointsForSpecificTestSuite);
+
+                foreach (var point in testPoints)
+                {
+                    // only get the last result for the current test point 
+                    // otherwise we would mix test results with different users
+                    var result = project
+                        .TestResults
+                        .ByTestId(point.TestCaseId)
+                        .LastOrDefault(testResultToFind => testResultToFind.TestPointId == point.Id);
+                    updateTestResultWithOutcome(testResult, result);
+                }
+            }
+            return testResult;
+        }
+
+        private void updateTestResultWithOutcome(TestResult resultToUpdate, ITestResult resultToUpdateWith)
+        {
+            resultToUpdate.TotalTestCount++;
+            // for some test points we might have no results yet
+            if (resultToUpdateWith == null)
+            {
+                resultToUpdate.NotRunTestCount++;
+                return;
+            }
+            switch (resultToUpdateWith.Outcome)
+            {
+                case TestOutcome.Passed:
+                    resultToUpdate.PassedTestCount++;
+                    break;
+                case TestOutcome.Failed:
+                    resultToUpdate.FailedTestCount++;
+                    break;
+                default:
+                    resultToUpdate.NotRunTestCount++;
+                    break;
+            }
         }
     }
 }
