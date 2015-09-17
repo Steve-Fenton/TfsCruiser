@@ -125,23 +125,20 @@ namespace TfsCommunicator
         }
 
         public List<TestResult> GetLatestTestPlanStatusReport(string projectName)
-        {
-            var tfs = GetTeamServer();
+        {           
             var teamProject = GetTestManagementProject(GetTeamServer(), projectName);
             var testPlans = teamProject.TestPlans.Query(string.Format("select * from TestPlan where StartDate<='{0}' and EndDate>='{0}'", DateTime.Now.Date.ToShortDateString()));
-            var results = new List<TestResult>();
-            foreach (var plan in testPlans)
-            {
-                results.Add(calculateTestResultByPlans(teamProject, plan));
-            }
-            return results;
+            return testPlans.Select(plan => calculateTestResultByPlans(teamProject, plan)).ToList();
         }
 
         private TestResult calculateTestResultByPlans(ITestManagementTeamProject project, ITestPlan testPlan)
         {
             var testResult = new TestResult();
             testResult.Name = string.Format("{0} - {1}", testPlan.Iteration, testPlan.Name);
-            foreach (var testSuite in testPlan.RootSuite.SubSuites)
+            var testSuites = new List<ITestSuiteBase>();
+            if (testPlan.RootSuite != null) testSuites.AddRange(GetTestSuiteRecursive(testPlan.RootSuite));
+                    
+            foreach (var testSuite in testSuites)
             {
 
                 string queryForTestPointsForSpecificTestSuite = string.Format(CultureInfo.InvariantCulture, "SELECT * FROM TestPoint WHERE SuiteId = {0}", testSuite.Id);
@@ -182,6 +179,49 @@ namespace TfsCommunicator
                     resultToUpdate.NotRunTestCount++;
                     break;
             }
+        }
+
+        private List<ITestSuiteBase> GetTestSuiteRecursive(IStaticTestSuite staticTestSuite)
+        {
+            // 1. Store results in the IStaticTestSuit list.
+            var result = new List<ITestSuiteBase>();
+
+            // 2. Store a stack of our TestSuite.
+            var stack = new Stack<ITestSuiteBase>();
+
+            // 3. Add Root Test Suite
+            stack.Push(staticTestSuite);
+
+            // 4. Continue while there are TestSuites to Process
+            while (stack.Count > 0)
+            {
+                // A. Get top Suite
+                var dir = stack.Pop();
+
+                try
+                {
+                    // B. Add all TestSuite at this directory to the result List.
+                    result.Add(dir);
+
+                    // only static suites can contain subsuites
+                    var staticDir = dir as IStaticTestSuite;
+                    if (staticDir != null)
+                    {
+                        // C. Add all SubSuite at this TestSuite.
+                        foreach (ITestSuiteBase ss in staticDir.SubSuites)
+                        {
+                            stack.Push(ss);
+                        }
+                    }
+                }
+                // ReSharper disable once EmptyGeneralCatchClause
+                catch
+                {
+                    // D. Fails to open the test suite
+                }
+            }
+
+            return result;
         }
     }
 }
