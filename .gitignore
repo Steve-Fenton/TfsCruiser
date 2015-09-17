@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/packages
+/TfsCommunicator/obj/Debug
+/TfsCruiser/bin
+/TfsCruiser/obj/Debug
+/TfsCruiser/Scripts

@@ -120,6 +120,11 @@ ul
         background-color: rgba(87, 174, 71, 0.80);
     }
 
+     .TfsProject.OnTrack
+    {
+        background-color: rgba(173, 255, 47, 0.80);
+    }
+
     .TfsProject.PartiallySucceeded
     {
         background-color: rgba(255, 106, 0, 0.80);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.TeamFoundation.Client;
+using Microsoft.TeamFoundation.Server;
 using Microsoft.TeamFoundation.TestManagement.Client;
 using System;
 using System.Collections.Generic;
@@ -37,18 +38,30 @@ namespace TfsCruiser.Controllers
             this.testCommunicator = testCommunicator;
         }
 
+        public ActionResult TestPlanIndex()
+        {
+            var viewModel = new TestPlanViewModel();
+            // Why can't i get this instantiated on contructor with get/set?
+            viewModel.TestResults = new List<TestResult>();
+            foreach (ProjectInfo project in this.testCommunicator.GetProjects())
+            {               
+                viewModel.TestResults.AddRange(testCommunicator.GetLatestTestPlanStatusReport(project.Name));
+            };
+            return View(viewModel);
+        }
+
         public ActionResult Index()
-        {           
-            var latestTestResult = testCommunicator.GetLatestTestResult("PROJECT NAME", "BUILD_DEFINITION", "Build Server");
-            var viewModel = new TestsViewModel
+        {
+            var latestTestResult = testCommunicator.GetLatestBuildTestResult("PROJECT NAME", "BUILD_DEFINITION", "Build Server");
+            var viewModel = new BuildTestsViewModel
             {
                 UnitTestResult = latestTestResult,
                 CurrentCoverage = latestTestResult.CodeCoverage,
-                PreviousCoverage = testCommunicator.GetPreviousTestResult("PROJECT NAME", "BUILD_DEFINITION", "Build Server").CodeCoverage,
+                PreviousCoverage = testCommunicator.GetPreviousBuildTestResult("PROJECT NAME", "BUILD_DEFINITION", "Build Server").CodeCoverage,
                 AutomationTestResult = new List<TestResult>
                 {
-                    testCommunicator.GetLatestTestResultByTitle("BUILD DEFINITION TITLE 1", "Build Server 2"),
-                    testCommunicator.GetLatestTestResultByTitle("BUILD DEFINITION TITLE 2", "Build Server 3"),
+                    testCommunicator.GetLatestBuildTestResultByTitle("BUILD DEFINITION TITLE 1", "Build Server 2"),
+                    testCommunicator.GetLatestBuildTestResultByTitle("BUILD DEFINITION TITLE 2", "Build Server 3"),
                 }
             };
 
