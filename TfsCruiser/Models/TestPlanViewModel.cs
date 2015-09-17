@@ -6,6 +6,6 @@ namespace TfsCruiser.ViewModels
 {
     public class TestPlanViewModel
     {
-        public List<TestResult> TestResults { get; set; }       
+        public List<TestResult> TestResults { get; set; } = new List<TestResult>(); 
     }
 }
