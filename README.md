@@ -7,7 +7,7 @@ It has been designed to work on a big screen, or projected onto the side of your
 
 Hook it up to your build server and TFS Cruiser will display the current status and a history of your builds.
 
-TFS Cruiser was inspired by CruiseControl.NET monitor, Cruiser - http://www.stevefenton.co.uk/Content/Cruiser/
+TFS Cruiser was inspired by CruiseControl.NET monitor, [Cruiser](https://github.com/Steve-Fenton/Cruiser)
 
 Config... you just need to tell TFS Cruiser the address of your build server...
 
@@ -15,4 +15,4 @@ Config... you just need to tell TFS Cruiser the address of your build server...
     <add key="MaxDaysToDisplay" value="4"/>
     <add key="MaxRunsToDisplay" value="11"/>
 
-You can also connect [TFS Cruiser to Visual Studio Online](https://www.stevefenton.co.uk/Content/Blog/Date/201505/Blog/Connect-TFS-Cruiser-To-Visual-Studio-Online/).
+You can also connect [TFS Cruiser to Visual Studio Online](https://www.stevefenton.co.uk/2015/05/Connect-TFS-Cruiser-To-Visual-Studio-Online/).
