@@ -6,5 +6,8 @@
 @Html.Partial("Update", Model)
 
 @section Scripts {
+    <script>
+        var updateUrl = '@Url.Action("Update", "Builds", new { })';
+    </script>
     @Scripts.Render("~/Scripts/app")
 }

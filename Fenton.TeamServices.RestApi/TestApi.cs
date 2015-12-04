@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,7 @@ namespace Fenton.TeamServices.TestRestApi
     public class TestApi
     {
         private IApiConfig _config;
-        private string _version = "1.0";
+        private string _version = "2.0-preview";
 
         public TestApi(IApiConfig config)
         {
@@ -17,11 +18,10 @@ namespace Fenton.TeamServices.TestRestApi
         public IList<GroupedTest> List(string statusfilter = "completed")
         {
             // https://www.visualstudio.com/integrate/api/test/runs
-            // Unused filters:
-            // [&builduri={string}&owner={string}&planid={int}&automated={bool}&skip={int}&$top={int}
 
-            var url = $"http://{_config.Account}.visualstudio.com/defaultcollection/{_config.Project}/_apis/test/runs?api-version={_version}&statusfilter={statusfilter}&includerundetails=true";
-            var result = RestApiClient.Get(url, _config.Username, _config.Password).Result;
+            var url = $"https://{_config.Account}.visualstudio.com/defaultcollection/{_config.Project}/_apis/test/runs/query?api-version={_version}&includerundetails=true&$top=60";
+            var query = "{ \"query\": \"Select * From TestRun Order By CompleteDate DESC \" }";
+            var result = RestApiClient.Post(url, _config.Username, _config.Password, query).Result;
             return MapToGroupedResult(result);
         }
 

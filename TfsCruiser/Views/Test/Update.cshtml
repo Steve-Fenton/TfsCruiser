@@ -13,15 +13,15 @@
             hasFailures = true;
             result = "failed";
         }
-        <div class="TfsProject @Html.MapState(result)" title="@first.name" style="height: @Html.TileHeight(Model.Count, 2, 2.5m)%;">
-            <h3><a href="@first.plan.url">@first.name</a></h3>
+        <div class="TfsProject @Html.MapState(result)" title="@first.project.name" style="height: @Html.TileHeight(Model.Count, 2, 2.5m)%;">
+            <h3><a href="@first.url">@first.project.name</a></h3>
             <div class="info">@first.passedTests of @first.totalTests passed</div>
             <div class="info">@first.createdDate</div>
             <ul class="history">
                 @foreach (var run in test.TestRuns)
                 {
-                    var miniResult = (first.passedTests == first.totalTests) ? "suceeded" : "failed";
-                    <li class="TfsProject Mini @miniResult" title="@run.name - @miniResult" style="width: @Html.MiniTileWidth(test.TestRuns.Count)%">@miniResult</li>
+                    var miniResult = (first.passedTests == first.totalTests) ? "succeeded" : "failed";
+                    <li class="TfsProject Mini @Html.MapState(miniResult)" title="@run.project.name - @miniResult" style="width: @Html.MiniTileWidth(test.TestRuns.Count)%">@miniResult</li>
                 }
             </ul>
           <div class="Status @Html.MapState(result)">

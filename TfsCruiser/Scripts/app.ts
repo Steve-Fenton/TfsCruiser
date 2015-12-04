@@ -1,4 +1,6 @@
 /// <reference path="references.ts" />
+declare var updateUrl: string;
+
 (function () {
     // If you have installed TfsCruiser in a sub-directory of your website,
     // you must put the directory name here, for example:
@@ -23,30 +25,18 @@
 
     var ajaxOkayCallback = function (response: Ajax.IAjaxResponse): void {
         document.getElementById('main').innerHTML = response.responseText;
-        overlay.alert('Build information updated', Notifier.MessageType.success);
+        overlay.alert('Dashboard updated', Notifier.MessageType.success);
         runCountDown();
     };
 
     var ajaxProblemCallback = function (): void {
-        overlay.alert('There was a problem obtaining the latest build information', Notifier.MessageType.error);
+        overlay.alert('There was a problem obtaining the latest information', Notifier.MessageType.error);
         runCountDown();
-    };
-
-    var getAddress = function (): string {
-        var address = document.location.href;
-
-        if (address.indexOf('/Builds/Index') > -1) {
-            address = address.replace('/Builds/Index', '/Builds/Update');
-        } else {
-            address = location.protocol + '//' + location.hostname + (location.port && ':' + location.port) + appName + '/Builds/Update';
-        }
-
-        return address;
     };
 
     var requestUpdate = function (): void {
         overlay.alert('Updating...', Notifier.MessageType.success);
-        var ajaxRequest = new Ajax.Request(Http.HttpVerb.GET, getAddress());
+        var ajaxRequest = new Ajax.Request(Http.HttpVerb.GET, updateUrl);
         ajaxRequest.addHttpStatusCallback([200], ajaxOkayCallback);
         ajaxRequest.addDefaultCallback(ajaxProblemCallback);
         ajaxRequest.run();
