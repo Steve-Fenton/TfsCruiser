@@ -1,7 +1,6 @@
-﻿using Fenton.TeamServices.TestRestApi;
-using System.Configuration;
+﻿using Fenton.TeamServices;
+using Fenton.TeamServices.TestRestApi;
 using System.Web.Mvc;
-
 
 namespace TfsCruiser.Controllers
 {
@@ -11,24 +10,17 @@ namespace TfsCruiser.Controllers
 
         public TestController()
         {
-            string teamAccount = ConfigurationManager.AppSettings["TeamAccount"];
-            string teamProject = ConfigurationManager.AppSettings["TeamProject"];
-            string teamUsername = ConfigurationManager.AppSettings["TeamUsername"];
-            string teamPassword = ConfigurationManager.AppSettings["TeamPassword"];
-
-            testApi = new TestApi(teamAccount, teamProject, teamUsername, teamPassword);
+            testApi = new TestApi(new ApiConfig());
         }
 
         public ActionResult Index()
         {
-            var model = testApi.List();
-            return View(model);
+            return View(testApi.List());
         }
 
         public ActionResult Update()
         {
-            var model = testApi.List();
-            return View(model);
+            return View(testApi.List());
         }
     }
 }

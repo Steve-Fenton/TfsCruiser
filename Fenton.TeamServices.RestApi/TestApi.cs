@@ -1,5 +1,4 @@
-﻿using Fenton.TeamServices.RestApi;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,18 +6,12 @@ namespace Fenton.TeamServices.TestRestApi
 {
     public class TestApi
     {
-        private string account;
-        private string project;
-        private string user;
-        private string password;
-        private string version = "1.0";
+        private IApiConfig _config;
+        private string _version = "1.0";
 
-        public TestApi(string teamAccount, string teamProject, string teamUser, string teamPassword)
+        public TestApi(IApiConfig config)
         {
-            account = teamAccount;
-            project = teamProject;
-            user = teamUser;
-            password = teamPassword;
+            _config = config;
         }
 
         public IList<GroupedTest> List(string statusfilter = "completed")
@@ -27,27 +20,27 @@ namespace Fenton.TeamServices.TestRestApi
             // Unused filters:
             // [&builduri={string}&owner={string}&planid={int}&automated={bool}&skip={int}&$top={int}
 
-            var url = $"http://{account}.visualstudio.com/defaultcollection/{project}/_apis/test/runs?api-version={version}&statusfilter={statusfilter}&includerundetails=true";
-            var result = RestApiClient.Get(url, user, password).Result;
+            var url = $"http://{_config.Account}.visualstudio.com/defaultcollection/{_config.Project}/_apis/test/runs?api-version={_version}&statusfilter={statusfilter}&includerundetails=true";
+            var result = RestApiClient.Get(url, _config.Username, _config.Password).Result;
             return MapToGroupedResult(result);
         }
 
         private static IList<GroupedTest> MapToGroupedResult(string result)
         {
-            var builds = JsonConvert.DeserializeObject<TestRuns>(result);
-            var buildNames = builds.value.Select(b => b.name).Distinct();
+            var items = JsonConvert.DeserializeObject<TestRuns>(result);
+            var names = items.value.Select(b => b.name).Distinct();
 
-            var groupedBuilds = new List<GroupedTest>();
-            foreach (var name in buildNames)
+            var grouped = new List<GroupedTest>();
+            foreach (var name in names)
             {
-                groupedBuilds.Add(new GroupedTest
+                grouped.Add(new GroupedTest
                 {
                     Name = name,
-                    TestRuns = builds.value.Where(b => b.name == name).OrderByDescending(b => b.startedDate).Take(10).ToList()
+                    TestRuns = items.value.Where(b => b.name == name).OrderByDescending(b => b.startedDate).Take(10).ToList()
                 });
             }
 
-            return groupedBuilds;
+            return grouped;
         }
     }
 }

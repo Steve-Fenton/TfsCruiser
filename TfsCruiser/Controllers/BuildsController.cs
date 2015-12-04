@@ -1,5 +1,5 @@
 ﻿using Fenton.TeamServices.BuildRestApi;
-using System.Configuration;
+using Fenton.TeamServices;
 using System.Web.Mvc;
 
 namespace TfsCruiser.Controllers
@@ -10,25 +10,17 @@ namespace TfsCruiser.Controllers
 
         public BuildsController()
         {
-            string teamAccount = ConfigurationManager.AppSettings["TeamAccount"];
-            string teamProject = ConfigurationManager.AppSettings["TeamProject"];
-            string teamUsername = ConfigurationManager.AppSettings["TeamUsername"];
-            string teamPassword = ConfigurationManager.AppSettings["TeamPassword"];
-
-            buildApi = new BuildApi(teamAccount, teamProject, teamUsername, teamPassword);
-
+            buildApi = new BuildApi(new ApiConfig());
         }
 
         public ActionResult Index()
         {
-            var model = buildApi.List();
-            return View(model);
+            return View(buildApi.List());
         }
 
         public ActionResult Update()
         {
-            var model = buildApi.List();
-            return View(model);
+            return View(buildApi.List());
         }
     }
 }

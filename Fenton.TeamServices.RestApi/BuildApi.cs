@@ -1,5 +1,4 @@
-﻿using Fenton.TeamServices.RestApi;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,18 +6,12 @@ namespace Fenton.TeamServices.BuildRestApi
 {
     public class BuildApi
     {
-        private string account;
-        private string project;
-        private string user;
-        private string password;
-        private string version = "2.0";
+        private readonly IApiConfig _config;
+        private string _version = "2.0";
 
-        public BuildApi(string teamAccount, string teamProject, string teamUser, string teamPassword)
+        public BuildApi(IApiConfig config)
         {
-            account = teamAccount;
-            project = teamProject;
-            user = teamUser;
-            password = teamPassword;
+            _config = config;
         }
 
         public IList<GroupedBuild> List(string statusfilter = "completed")
@@ -27,27 +20,27 @@ namespace Fenton.TeamServices.BuildRestApi
             // Unused filters:
             // [&definitions={string}][&queues={string}][&buildnumber={string}][&type={string}][&minfinishtime={datetime}][&maxfinishtime={datetime}][&requestedfor={string}][&reasonfilter={string}][&tagfilters={string}][&propertyfilters={string}][&$top={int}][&continuationtoken={string}]
 
-            var url = $"https://{account}.visualstudio.com/defaultcollection/{project}/_apis/build/builds?api-version={version}&statusfilter={statusfilter}";
-            var result = RestApiClient.Get(url, user, password).Result;
+            var url = $"https://{_config.Account}.visualstudio.com/defaultcollection/{_config.Project}/_apis/build/builds?api-version={_version}&statusfilter={statusfilter}";
+            var result = RestApiClient.Get(url, _config.Username, _config.Password).Result;
             return MapToGroupedResult(result);
         }
 
         private static IList<GroupedBuild> MapToGroupedResult(string result)
         {
-            var builds = JsonConvert.DeserializeObject<Builds>(result);
-            var buildNames = builds.value.Select(b => b.definition.name).Distinct();
+            var items = JsonConvert.DeserializeObject<Builds>(result);
+            var names = items.value.Select(b => b.definition.name).Distinct();
 
-            var groupedBuilds = new List<GroupedBuild>();
-            foreach (var name in buildNames)
+            var grouped = new List<GroupedBuild>();
+            foreach (var name in names)
             {
-                groupedBuilds.Add(new GroupedBuild
+                grouped.Add(new GroupedBuild
                 {
                     Name = name,
-                    Builds = builds.value.Where(b => b.definition.name == name).OrderByDescending(b => b.finishTime).Take(10).ToList()
+                    Builds = items.value.Where(b => b.definition.name == name).OrderByDescending(b => b.finishTime).Take(10).ToList()
                 });
             }
 
-            return groupedBuilds;
+            return grouped;
         }
     }
 }
