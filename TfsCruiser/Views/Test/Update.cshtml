@@ -1,0 +1,47 @@
+﻿@model IList<Fenton.TeamServices.TestRestApi.GroupedTest> 
+
+@{
+    bool hasFailures = false;
+    string result = "succeeded";
+    var height = Math.Round((decimal)((100 / (Math.Ceiling((decimal)Model.Count() / 2))) - (decimal)3), 6);
+    foreach (var project in Model)
+    {
+        var first = project.TestRuns.First();
+
+        if (first.passedTests != first.totalTests)
+        {
+            hasFailures = true;
+            result = "failed";
+        }
+        var width = Math.Round((decimal)(100 / (project.TestRuns.Count + 1)), 6);
+        var style = "width: " + width + "%;";
+        <div class="TfsProject @result" title="@first.name" style="height: @height%;">
+            <h3><a href="@first.plan.url">@first.name</a></h3>
+            <div class="info">@first.passedTests of @first.totalTests passed</div>
+            <div class="info">@first.createdDate</div>
+            <ul class="history">
+                @foreach (var run in project.TestRuns)
+                {
+                    var miniResult = (first.passedTests == first.totalTests) ? "suceeded" : "failed";
+                    <li class="TfsProject Mini @miniResult" title="@run.name - @miniResult" style="@style">@miniResult</li>
+                }
+            </ul>
+          <div class="Status @result">
+                @result
+            </div>
+        </div>
+    }
+
+
+    if (hasFailures)
+    {
+        <script>
+            window.setTimeout(function () {
+                var alarm = document.getElementById('alarm');
+                if (alarm) {
+                    alarm.play();
+                }
+            }, 1000);
+        </script>
+    }
+}

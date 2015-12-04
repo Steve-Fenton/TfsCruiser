@@ -1,31 +1,36 @@
-﻿@model TfsCruiser.Models.BuildStatusModel
+﻿@model IList<Fenton.TeamServices.BuildRestApi.GroupedBuild> 
 
 @{
-    bool failed = false;
-    foreach (var project in Model.Projects)
+    bool hasFailures = false;
+    var height = Math.Round((decimal)((100 / (Math.Ceiling((decimal)Model.Count() / 2))) - (decimal)3), 6);
+    foreach (var project in Model)
     {
-        if (project.Status == "Failed") {
-            failed = true;
+        var first = project.Builds.First();
+
+        if (first.result.Equals("failed", StringComparison.InvariantCultureIgnoreCase))
+        {
+            hasFailures = true;
         }
-        var width = Math.Round((decimal)(100 / (project.PreviousRuns.Count + 1)), 6);
+        var width = Math.Round((decimal)(100 / (project.Builds.Count + 1)), 6);
         var style = "width: " + width + "%;";
-        <div class="TfsProject @project.Status" title="@project.Name" style="height: @Model.BoxHeightPercentage%;">
-            <h3>@Html.ActionLink(project.DefinitionName, "Index", "Builds", new { project = project.Name, build = project.DefinitionName }, null) (@Html.ActionLink(project.Name, "Index", "Builds", new { project = project.Name }, null))</h3>
-            <div class="info">@project.BuildNumber for @project.RequestedFor</div>
-            <div class="info">@project.FinishTime.ToString("MMMM dd, yyyy H:mm")</div>
+        <div class="TfsProject @first.result" title="@first.definition.name" style="height: @height%;">
+            <h3><a href="@first.uri">@first.definition.name</a></h3>
+            <div class="info">@first.buildNumber for @first.requestedFor.displayName</div>
+            <div class="info">@first.finishTime</div>
             <ul class="history">
-                @foreach (var run in project.PreviousRuns)
-                {<li class="TfsProject Mini @run.Status" title="@run.FinishTime.ToString() - @run.Status (Took @run.Duration) minutes" style="@style">@run.FinishTime.ToString("ddd, d")<br/>@run.FinishTime.ToString("HH:mm")<br />@run.RequestedFor.Split(' ').FirstOrDefault()</li>}
-                <li class="TfsProject Mini @project.Status" title="@project.FinishTime.ToString() - @project.Status (Took @project.Duration) minutes" style="@style">@project.FinishTime.ToString("ddd, d")<br />@project.FinishTime.ToString("HH:mm")<br />@project.RequestedFor.Split(' ').FirstOrDefault()</li>                
+                @foreach (var run in project.Builds)
+                {
+                    <li class="TfsProject Mini @run.result" title="@run.finishTime - @run.result" style="@style">@run.requestedFor.displayName</li>
+                }
             </ul>
-            <div class="Status @project.Status">
-                @project.Status
+          <div class="Status @first.result">
+                @first.result
             </div>
         </div>
-        }
-    
+    }
 
-    if (failed)
+
+    if (hasFailures)
     {
         <script>
             window.setTimeout(function () {

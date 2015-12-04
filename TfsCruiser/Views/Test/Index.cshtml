@@ -1,78 +1,11 @@
-﻿@model TfsCruiser.ViewModels.BuildTestsViewModel
+﻿@model IList<Fenton.TeamServices.TestRestApi.GroupedTest> 
 @{
     Layout = "~/Views/Shared/_layout.cshtml";
 }
+@section title { Tests }
+<audio src="~/Content/ecto.mp3" id="alarm"></audio>
+@Html.Partial("Update", Model)
 
-@section title { DMS Tests }
-
-<div id="unitTestResults" class="TfsProject @Model.GetUnitTestResultClass()" style="height:49%;">
-    <h3>Unit Tests</h3>
-    <div class="Status">@Model.UnitTestResult.CompletedTime</div>
-    <p style="font-size:1.5em;"><strong>Passed Tests: @Model.UnitTestResult.PassedTestCount / @Model.UnitTestResult.TotalTestCount</strong></p>
-    <p style="font-size:1em">Failed Tests: @Model.UnitTestResult.FailedTestCount / @Model.UnitTestResult.TotalTestCount</p>
-    <p style="font-size:1em">Inconclusive Tests: @Model.UnitTestResult.NotRunTestCount / @Model.UnitTestResult.TotalTestCount</p>
-</div>
-
-<div id="automationTestResults" class="TfsProject @Model.GetAutomationTestResultClass()" style="height:49%;">
-    <h3>Automation Test</h3>
-    @foreach (var automationResult in Model.AutomationTestResult)
-    {
-        <div style="float:left; width:50%;">
-            <p style="font-size:1.4em;"><strong>Passed Tests: @automationResult.PassedTestCount / @automationResult.TotalTestCount</strong></p>
-            <p style="font-size:1em">Failed Tests: @automationResult.FailedTestCount / @automationResult.TotalTestCount</p>
-            <p style="font-size:1em">Inconclusive Tests: @automationResult.NotRunTestCount / @automationResult.TotalTestCount</p>
-            <p>Last Run: @automationResult.CompletedTime (@automationResult.ServerName)</p>
-        </div>
-    }
-</div>
-
-<div id="codeCoverage" class="TfsProject @Model.GetCodeCoverageClass()" style="height:49%;">
-    <h3>Code Coverage</h3>
-    <div class="Status">@Model.CurrentCoverage.CompletedTime</div>
-    <div id="resultsView" style="float:left; width:60%;">
-        <p style="font-size:2em; margin-top:0.5em"><strong>Latest Coverage</strong><br />@Math.Round(Model.CurrentCoverage.Coverage,2)%</p>
-
-        <p><strong>Previous Coverage at: @Model.PreviousCoverage.CompletedTime</strong></p>
-        <p>@Math.Round(Model.PreviousCoverage.Coverage,2)%</p>
-    </div>
-
-    @if (Model.GetCodeCoverageIcon() == "Increased")
-    {
-        <div id="resultsIndicator" style="margin: 500px 0 0 0;">
-            <i class="fa fa-arrow-up" style="font-size: 9em;"></i>
-        </div>
-    }
-    else if (Model.GetCodeCoverageIcon() == "Decreased")
-    {
-        <div id="resultsIndicator" style="margin: -500px 0 0 0;">
-            <i class="fa fa-arrow-down" style="font-size: 9em;"></i>
-        </div>
-    }
-    else
-    {
-        <div id="resultsIndicator" style="margin: 0 0 0 -900px;">
-            <i class="fa fa-arrow-right" style="font-size: 9em;"></i>
-        </div>
-    }
-</div>
 @section Scripts {
-    <script>
-        window.addEventListener("load", init, false)
-
-        function init()
-        {
-            window.setTimeout(showResultsArrow, 1500)
-        }
-
-        function showResultsArrow()
-        {
-            var resultsIndicator = document.getElementById("resultsIndicator");
-            if (resultsIndicator.style.removeProperty) {
-                resultsIndicator.style.removeProperty('margin');
-            } else {
-                resultsIndicator.style.removeAttribute('margin');
-            }
-        }
-
-    </script>
+    @Scripts.Render("~/Scripts/app")
 }

@@ -11,8 +11,9 @@ TFS Cruiser was inspired by CruiseControl.NET monitor, [Cruiser](https://github.
 
 Config... you just need to tell TFS Cruiser the address of your build server...
 
-    <add key="TfsServerAddress" value="http://BUILD-SERVER:8080/tfs/"/>
-    <add key="MaxDaysToDisplay" value="4"/>
-    <add key="MaxRunsToDisplay" value="11"/>
+    <add key="TeamAccount" value="Fabrikam" />
+    <add key="TeamProject" value="CoolProject" />
+    <add key="TeamUsername" value="fenton" />
+    <add key="TeamPassword" value="your-generated-special-key-password" />
 
 You can also connect [TFS Cruiser to Visual Studio Online](https://www.stevefenton.co.uk/2015/05/Connect-TFS-Cruiser-To-Visual-Studio-Online/).

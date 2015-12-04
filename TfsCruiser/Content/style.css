@@ -115,27 +115,27 @@ ul
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-    .TfsProject.Succeeded
+    .TfsProject.succeeded
     {
         background-color: rgba(87, 174, 71, 0.80);
     }
 
-     .TfsProject.OnTrack
+     .TfsProject.ontrack
     {
         background-color: rgba(173, 255, 47, 0.80);
     }
 
-    .TfsProject.PartiallySucceeded
+    .TfsProject.partiallysucceeded
     {
         background-color: rgba(255, 106, 0, 0.80);
     }
 
-    .TfsProject.Failed
+    .TfsProject.failed
     {
         background-color: rgba(220, 48, 39, 0.80);
     }
 
-    .TfsProject.Stopped
+    .TfsProject.stopped
     {
         background-color: rgba(39, 48, 220, 0.80);
     }
@@ -159,22 +159,22 @@ ul
         opacity: 0.3;
     }
 
-        .TfsProject.Mini.Succeeded
+        .TfsProject.Mini.succeeded
         {
             background-color: rgba(87, 174, 71, 1);
         }
 
-        .TfsProject.Mini.PartiallySucceeded
+        .TfsProject.Mini.partiallysucceeded
         {
             background-color: rgba(255, 106, 0, 1);
         }
 
-        .TfsProject.Mini.Failed
+        .TfsProject.Mini.failed
         {
             background-color: rgba(220, 48, 39, 1);
         }
 
-        .TfsProject.Mini.Stopped
+        .TfsProject.Mini.stopped
         {
             background-color: rgba(39, 48, 220, 1);
         }
@@ -192,7 +192,7 @@ ul
     right: 10px;
 }
 
-    .Status.Succeeded
+    .Status.succeeded
     {
         display: none;
     }

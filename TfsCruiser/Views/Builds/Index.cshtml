@@ -1,4 +1,4 @@
-﻿@model TfsCruiser.Models.BuildStatusModel
+﻿@model IList<Fenton.TeamServices.BuildRestApi.GroupedBuild> 
 @{
     Layout = "~/Views/Shared/_layout.cshtml";
 }
@@ -7,5 +7,5 @@
 @Html.Partial("Update", Model)
 
 @section Scripts {
-    @System.Web.Optimization.Scripts.Render("~/Scripts/app")
+    @Scripts.Render("~/Scripts/app")
 }

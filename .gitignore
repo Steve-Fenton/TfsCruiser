@@ -4,7 +4,6 @@
 
 /.vs
 /packages
-/TfsCommunicator/obj/Debug
 /TfsCruiser/bin
 /TfsCruiser/obj/Debug
 /TfsCruiser/Scripts
