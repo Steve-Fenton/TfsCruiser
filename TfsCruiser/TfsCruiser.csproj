@@ -214,7 +214,6 @@
     <TypeScriptCompile Include="Scripts\Ajax.ts" />
     <TypeScriptCompile Include="Scripts\app.ts" />
     <TypeScriptCompile Include="Scripts\Encoding.ts" />
-    <TypeScriptCompile Include="Scripts\HtmlShim.ts" />
     <TypeScriptCompile Include="Scripts\Http.ts" />
     <TypeScriptCompile Include="Scripts\Logging.ts" />
     <TypeScriptCompile Include="Scripts\Notifier.ts" />

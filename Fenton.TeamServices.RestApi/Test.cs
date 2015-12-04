@@ -72,5 +72,21 @@ namespace Fenton.TeamServices.TestRestApi
         public int revision { get; set; }
         public string comment { get; set; }
         public int? unanalyzedTests { get; set; }
+        public string result
+        {
+            get
+            {
+                if (state != "Completed")
+                {
+                    return "partiallysucceeded";
+                }
+                else if (passedTests != totalTests)
+                {
+                    return "failed";
+                }
+                return "succeeded";
+            }
+        }
+
     }
 }

@@ -19,7 +19,7 @@
             <ul class="history">
                 @foreach (var run in project.Builds)
                 {
-                    <li class="TfsProject Mini @Html.MapState(run.result)" title="@run.finishTime - @run.result" style="width: @Html.MiniTileWidth(project.Builds.Count)%">@run.requestedFor.displayName</li>
+                    <li class="TfsProject Mini @Html.MapState(run.result)" title="@run.finishTime - @Html.MapState(run.result)" style="width: @Html.MiniTileWidth(project.Builds.Count)%">@run.requestedFor.displayName</li>
                 }
             </ul>
           <div class="Status @Html.MapState(first.result)">

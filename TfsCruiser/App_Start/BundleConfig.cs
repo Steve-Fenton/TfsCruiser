@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using System.Configuration;
 using System.Web.Optimization;
 
 namespace TfsCruiser
@@ -16,10 +16,12 @@ namespace TfsCruiser
                 "~/Scripts/Notifier.js",
                 "~/Scripts/app.js"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/html").Include(
-                "~/Scripts/HtmlShim.js"));
-
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/style.css"));
+
+            if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["EnableOptimizations"]) || ConfigurationManager.AppSettings["EnableOptimizations"].Equals("true", System.StringComparison.InvariantCultureIgnoreCase))
+            {
+                BundleTable.EnableOptimizations = true;
+            }
         }
     }
 }

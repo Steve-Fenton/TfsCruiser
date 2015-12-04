@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8">
     @Styles.Render("~/Content/css")
-    <title>TFSCruiser</title>
-    @Scripts.Render("~/Scripts/html")
+    <title>TFS Cruiser</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
@@ -13,7 +12,9 @@
     </header>
     <nav>
         <ul id="bar">
-            <li><a href="~/Builds/Index">Home</a></li>
+            <li><a href="@Url.Action("Index", "Builds", new { })">Builds</a></li>
+            <li><a href="@Url.Action("Index", "Test", new { })">Test Runs</a></li>
+
         </ul>
     </nav>
     <main role="main" id="main">
