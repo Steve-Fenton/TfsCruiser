@@ -3,6 +3,8 @@ TfsCruiser
 
 TFS Cruiser is a great big visible information radiator to show off the heath of your TFS builds.
 
+UPDATED for v2.0 of the Build REST API.
+
 It has been designed to work on a big screen, or projected onto the side of your building if you really want to show off.
 
 Hook it up to your build server and TFS Cruiser will display the current status and a history of your builds.
