@@ -2,7 +2,7 @@
 
 @{
     bool hasFailures = false;
-    var height = Math.Round((decimal)((100 / (Math.Ceiling((decimal)Model.Count() / 2))) - (decimal)3), 6);
+
     foreach (var project in Model)
     {
         var first = project.Builds.First();
@@ -11,19 +11,18 @@
         {
             hasFailures = true;
         }
-        var width = Math.Round((decimal)(100 / (project.Builds.Count + 1)), 6);
-        var style = "width: " + width + "%;";
-        <div class="TfsProject @first.result" title="@first.definition.name" style="height: @height%;">
+
+        <div class="TfsProject @Html.MapState(first.result)" title="@first.definition.name" style="height: @Html.TileHeight(Model.Count, 2, 2.5m)%;">
             <h3><a href="@first.uri">@first.definition.name</a></h3>
             <div class="info">@first.buildNumber for @first.requestedFor.displayName</div>
             <div class="info">@first.finishTime</div>
             <ul class="history">
                 @foreach (var run in project.Builds)
                 {
-                    <li class="TfsProject Mini @run.result" title="@run.finishTime - @run.result" style="@style">@run.requestedFor.displayName</li>
+                    <li class="TfsProject Mini @Html.MapState(run.result)" title="@run.finishTime - @run.result" style="width: @Html.MiniTileWidth(project.Builds.Count)%">@run.requestedFor.displayName</li>
                 }
             </ul>
-          <div class="Status @first.result">
+          <div class="Status @Html.MapState(first.result)">
                 @first.result
             </div>
         </div>

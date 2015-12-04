@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    @System.Web.Optimization.Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css")
     <title>TFSCruiser</title>
-    @System.Web.Optimization.Scripts.Render("~/Scripts/html")
+    @Scripts.Render("~/Scripts/html")
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
@@ -18,10 +18,10 @@
     </nav>
     <main role="main" id="main">
         <article>
-            <h3>@RenderSection("title")</h3>
             @RenderBody()
         </article>
     </main>
+    <audio src="~/Content/ecto.mp3" id="alarm"></audio>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

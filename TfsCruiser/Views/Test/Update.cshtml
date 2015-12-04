@@ -3,35 +3,32 @@
 @{
     bool hasFailures = false;
     string result = "succeeded";
-    var height = Math.Round((decimal)((100 / (Math.Ceiling((decimal)Model.Count() / 2))) - (decimal)3), 6);
-    foreach (var project in Model)
+
+    foreach (var test in Model)
     {
-        var first = project.TestRuns.First();
+        var first = test.TestRuns.First();
 
         if (first.passedTests != first.totalTests)
         {
             hasFailures = true;
             result = "failed";
         }
-        var width = Math.Round((decimal)(100 / (project.TestRuns.Count + 1)), 6);
-        var style = "width: " + width + "%;";
-        <div class="TfsProject @result" title="@first.name" style="height: @height%;">
+        <div class="TfsProject @Html.MapState(result)" title="@first.name" style="height: @Html.TileHeight(Model.Count, 2, 2.5m)%;">
             <h3><a href="@first.plan.url">@first.name</a></h3>
             <div class="info">@first.passedTests of @first.totalTests passed</div>
             <div class="info">@first.createdDate</div>
             <ul class="history">
-                @foreach (var run in project.TestRuns)
+                @foreach (var run in test.TestRuns)
                 {
                     var miniResult = (first.passedTests == first.totalTests) ? "suceeded" : "failed";
-                    <li class="TfsProject Mini @miniResult" title="@run.name - @miniResult" style="@style">@miniResult</li>
+                    <li class="TfsProject Mini @miniResult" title="@run.name - @miniResult" style="width: @Html.MiniTileWidth(test.TestRuns.Count)%">@miniResult</li>
                 }
             </ul>
-          <div class="Status @result">
+          <div class="Status @Html.MapState(result)">
                 @result
             </div>
         </div>
     }
-
 
     if (hasFailures)
     {
