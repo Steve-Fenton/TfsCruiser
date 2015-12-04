@@ -21,11 +21,11 @@
                 @foreach (var run in test.TestRuns)
                 {
                     var miniResult = (first.passedTests == first.totalTests) ? "succeeded" : "failed";
-                    <li class="TfsProject Mini @Html.MapState(miniResult)" title="@run.project.name - @miniResult" style="width: @Html.MiniTileWidth(test.TestRuns.Count)%">@miniResult</li>
+                    <li class="TfsProject Mini @Html.MapState(miniResult)" title="@run.project.name - @run.createdDate" style="width: @Html.MiniTileWidth(test.TestRuns.Count)%">@Html.MapState(miniResult)<br />@run.passedTests / @run.totalTests</li>
                 }
             </ul>
           <div class="Status @Html.MapState(result)">
-                @result
+                @Html.MapState(result)
             </div>
         </div>
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Fenton.TeamServices.TestRestApi
 {
@@ -58,15 +59,15 @@ namespace Fenton.TeamServices.TestRestApi
         public string iteration { get; set; }
         public Owner owner { get; set; }
         public Project project { get; set; }
-        public string startedDate { get; set; }
-        public string completedDate { get; set; }
+        public DateTime startedDate { get; set; }
+        public DateTime completedDate { get; set; }
         public string state { get; set; }
         public Plan plan { get; set; }
         public string postProcessState { get; set; }
         public int totalTests { get; set; }
         public int passedTests { get; set; }
-        public string createdDate { get; set; }
-        public string lastUpdatedDate { get; set; }
+        public DateTime createdDate { get; set; }
+        public DateTime lastUpdatedDate { get; set; }
         public LastUpdatedBy lastUpdatedBy { get; set; }
         public int revision { get; set; }
         public string comment { get; set; }

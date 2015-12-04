@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Fenton.TeamServices.BuildRestApi
 {
@@ -135,15 +136,15 @@ namespace Fenton.TeamServices.BuildRestApi
         public string sourceVersion { get; set; }
         public string status { get; set; }
         public Queue queue { get; set; }
-        public string queueTime { get; set; }
+        public DateTime queueTime { get; set; }
         public string priority { get; set; }
-        public string startTime { get; set; }
-        public string finishTime { get; set; }
+        public DateTime startTime { get; set; }
+        public DateTime finishTime { get; set; }
         public string reason { get; set; }
         public string result { get; set; }
         public RequestedFor requestedFor { get; set; }
         public RequestedBy requestedBy { get; set; }
-        public string lastChangedDate { get; set; }
+        public DateTime lastChangedDate { get; set; }
         public LastChangedBy lastChangedBy { get; set; }
         public OrchestrationPlan orchestrationPlan { get; set; }
         public Logs logs { get; set; }
