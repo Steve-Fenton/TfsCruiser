@@ -197,6 +197,7 @@
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="piviewer.html" />
     <Content Include="quotes.html" />
     <Content Include="viewer.html" />
     <Content Include="Web.config" />

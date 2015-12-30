@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Viewer</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            position: absolute;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+        }
+
+            #container iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+                position: absolute;
+                background-color: #FFF;
+                left: 0;
+                top: 0;
+                display: inline-block;
+                -moz-transition: all 1s ease;
+                -o-transition: all 1s ease;
+                -webkit-transition: all 1s ease;
+                transition: all 1s ease;
+                overflow: hidden;
+            }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <iframe id="content" src="about:blank"></iframe>
+    </div>
+    <script>
+        (function () {
+            /*
+                Rotisserie, by Steve Fenton
+                (C) 2014 Steve Fenton, released under an Apache 2 license
+                http://www.apache.org/licenses/LICENSE-2.0
+            */
+
+            var For = (function (quantity) {
+                return {
+                    hours: function () {
+                        return this.minutes() * 60;
+                    },
+                    minutes: function () {
+                        return this.seconds() * 60;
+                    },
+                    seconds: function () {
+                        return this.milliseconds() * 1000;
+                    },
+                    milliseconds: function () {
+                        return quantity;
+                    }
+                };
+            });
+
+            var Page = (function () {
+                var publicProperties = function (url, duration) {
+                    this.duration = duration || (30 * 1000);
+                    this.url = url;
+                    this.displayElement = null;
+                }
+
+                return publicProperties;
+            }());
+
+            var Rotisserie = (function () {
+                var _cssDuration = 1000;
+                var _timer;
+                var _pos = 0;
+
+                var publicProperties = function (pages, contentId) {
+                    this.pages = pages;
+                    this.content = document.getElementById(contentId);
+
+                    // `this` shim
+                    var _this = this;
+
+                    // Set up the oneror handler before adding the slide to the page
+                    this.content.onerror = function () {
+                        _this.skip.call(_this);
+                    };
+                };
+
+                publicProperties.prototype.skip = function () {
+                    window.clearTimeout(_timer);
+                    _pos++;
+                    this.run(_pos);
+                };
+
+                publicProperties.prototype.run = function (pos) {
+                    if (_pos >= this.pages.length) {
+                        _pos = 0;
+                    }
+
+                    var page = this.pages[_pos];
+
+                    // Add the new slide to the page
+                    this.content.src = page.url;
+
+                    var _this = this;
+
+                    _timer = window.setTimeout(function () {
+                        _this.skip.call(_this);
+                    }, page.duration);
+                };
+
+                return publicProperties;
+            }());
+
+            // Just add URLs here
+            var pages = [
+                new Page('http://YourTfsCruiserUrl/'),
+		        new Page('http://YourBlogAddress/'),
+                new Page('quotes.html', For(10).seconds())
+            ];
+
+            var rotisserie = new Rotisserie(pages, 'content');
+            rotisserie.run();
+        }());
+    </script>
+</body>
+</html>
