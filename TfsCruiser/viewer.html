@@ -243,8 +243,9 @@
 
             // Just add URLs here
             var pages = [
-                new Page('http://YourTfsCruiserUrl/'),
-		        new Page('http://YourBlogAddress/'),
+                new Page('/Builds/Index'),
+                new Page('quotes.html', For(10).seconds()),
+                new Page('/Test/Index'),
                 new Page('quotes.html', For(10).seconds())
             ];
 

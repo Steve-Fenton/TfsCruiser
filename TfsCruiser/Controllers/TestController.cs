@@ -6,21 +6,21 @@ namespace TfsCruiser.Controllers
 {
     public class TestController : Controller
     {
-        private readonly TestApi testApi;
+        private readonly TestApi _testApi;
 
         public TestController()
         {
-            testApi = new TestApi(new ApiConfig());
+            _testApi = new TestApi(new ApiConfig());
         }
 
         public ActionResult Index()
         {
-            return View(testApi.List());
+            return View(_testApi.List());
         }
 
         public ActionResult Update()
         {
-            return View(testApi.List());
+            return View(_testApi.List());
         }
     }
 }

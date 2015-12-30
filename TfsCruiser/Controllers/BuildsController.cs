@@ -6,21 +6,21 @@ namespace TfsCruiser.Controllers
 {
     public class BuildsController : Controller
     {
-        private readonly BuildApi buildApi;
+        private readonly BuildApi _buildApi;
 
         public BuildsController()
         {
-            buildApi = new BuildApi(new ApiConfig());
+            _buildApi = new BuildApi(new ApiConfig());
         }
 
         public ActionResult Index()
         {
-            return View(buildApi.List());
+            return View(_buildApi.List());
         }
 
         public ActionResult Update()
         {
-            return View(buildApi.List());
+            return View(_buildApi.List());
         }
     }
 }

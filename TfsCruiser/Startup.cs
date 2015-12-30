@@ -8,7 +8,6 @@ namespace TfsCruiser
     {
         public void Configuration(IAppBuilder app)
         {
-            
         }
     }
 }

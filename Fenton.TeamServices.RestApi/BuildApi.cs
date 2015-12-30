@@ -19,7 +19,6 @@ namespace Fenton.TeamServices.BuildRestApi
             // https://www.visualstudio.com/integrate/api/build/builds
             // Unused filters:
             // [&definitions={string}][&queues={string}][&buildnumber={string}][&type={string}][&minfinishtime={datetime}][&maxfinishtime={datetime}][&requestedfor={string}][&reasonfilter={string}][&tagfilters={string}][&propertyfilters={string}][&$top={int}][&continuationtoken={string}]
-
             var url = $"https://{_config.Account}.visualstudio.com/defaultcollection/{_config.Project}/_apis/build/builds?api-version={_version}&statusfilter={statusfilter}";
             var result = RestApiClient.Get(url, _config.Username, _config.Password).Result;
             return MapToGroupedResult(result);

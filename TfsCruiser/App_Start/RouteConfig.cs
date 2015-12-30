@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace TfsCruiser
@@ -16,8 +12,7 @@ namespace TfsCruiser
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{project}/{build}",
-                defaults: new { controller = "Builds", action = "Index", project = UrlParameter.Optional, build = UrlParameter.Optional }
-            );
+                defaults: new { controller = "Builds", action = "Index", project = UrlParameter.Optional, build = UrlParameter.Optional });
         }
     }
 }
