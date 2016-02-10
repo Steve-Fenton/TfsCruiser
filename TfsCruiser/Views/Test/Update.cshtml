@@ -13,13 +13,13 @@
         }
 
         <div class="TfsProject @Html.MapState(first.result)" title="@first.project.name" style="height: @Html.TileHeight(Model.Count, 2, 2.5m)%;">
-            <h3><a href="@first.url">@first.project.name</a></h3>
+            <h3><a href="@first.url">@test.Name</a></h3>
             <div class="info">@first.passedTests of @first.totalTests passed</div>
             <div class="info">@first.createdDate</div>
             <ul class="history">
                 @foreach (var run in test.TestRuns)
                 {
-                    <li class="TfsProject Mini @Html.MapState(run.result)" title="@run.project.name - @run.createdDate" style="width: @Html.MiniTileWidth(test.TestRuns.Count)%">@Html.MapState(run.result)<br />@run.passedTests / @run.totalTests</li>
+                    <li class="TfsProject Mini @Html.MapState(run.result)" title="@test.Name - @run.createdDate" style="width: @Html.MiniTileWidth(test.TestRuns.Count)%">@Html.MapState(run.result)<br />@run.passedTests / @run.totalTests</li>
                 }
             </ul>
           <div class="Status @Html.MapState(first.result)">
