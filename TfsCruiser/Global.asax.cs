@@ -1,9 +1,9 @@
-﻿using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-
-namespace TfsCruiser
+﻿namespace TfsCruiser
 {
+    using System.Web.Mvc;
+    using System.Web.Optimization;
+    using System.Web.Routing;
+
 #pragma warning disable SA1649 // File name must match first type name
 
     public class MvcApplication : System.Web.HttpApplication

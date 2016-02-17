@@ -1,9 +1,9 @@
-﻿using Fenton.TeamServices;
-using Fenton.TeamServices.BuildRestApi;
-using System.Web.Mvc;
-
-namespace TfsCruiser.Controllers
+﻿namespace TfsCruiser.Controllers
 {
+    using Fenton.TeamServices;
+    using Fenton.TeamServices.BuildRestApi;
+    using System.Web.Mvc;
+
     public class BuildsController : Controller
     {
         private readonly BuildApi _buildApi;

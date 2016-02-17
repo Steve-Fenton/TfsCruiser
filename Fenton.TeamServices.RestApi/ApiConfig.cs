@@ -1,7 +1,7 @@
-﻿using System.Configuration;
-
-namespace Fenton.TeamServices
+﻿namespace Fenton.TeamServices
 {
+    using System.Configuration;
+
     public class ApiConfig : IApiConfig
     {
         private readonly string _account = ConfigurationManager.AppSettings["TeamAccount"];

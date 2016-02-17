@@ -1,9 +1,9 @@
-﻿using Fenton.TeamServices;
-using Fenton.TeamServices.TestRestApi;
-using System.Web.Mvc;
-
-namespace TfsCruiser.Controllers
+﻿namespace TfsCruiser.Controllers
 {
+    using Fenton.TeamServices;
+    using Fenton.TeamServices.TestRestApi;
+    using System.Web.Mvc;
+
     public class TestController : Controller
     {
         private readonly TestApi _testApi;
