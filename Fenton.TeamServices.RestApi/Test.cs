@@ -72,6 +72,7 @@ namespace Fenton.TeamServices.TestRestApi
         public int revision { get; set; }
         public string comment { get; set; }
         public int? unanalyzedTests { get; set; }
+
         public string result
         {
             get
@@ -87,6 +88,5 @@ namespace Fenton.TeamServices.TestRestApi
                 return "succeeded";
             }
         }
-
     }
 }

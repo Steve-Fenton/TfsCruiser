@@ -1,6 +1,4 @@
-﻿using System.Web.Mvc;
-
-namespace System.Web.Mvc.Html
+﻿namespace System.Web.Mvc.Html
 {
     public static class StateMapper
     {
@@ -10,12 +8,16 @@ namespace System.Web.Mvc.Html
             {
                 case "succeeded":
                     return "Succeeded";
+
                 case "ontrack":
                     return "OnTrack";
+
                 case "partiallysucceeded":
                     return "PartiallySucceeded";
+
                 case "stopped":
                     return "Stopped";
+
                 case "failed":
                 default:
                     return "Failed";

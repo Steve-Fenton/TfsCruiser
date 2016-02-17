@@ -43,7 +43,6 @@ module Encoding {
             input = input.replace(/[^A-Za-z0-9\+\/\=]/g, '');
 
             while (i < input.length) {
-
                 encA = this.decodeFromKey(input.charAt(i++));
                 encB = this.decodeFromKey(input.charAt(i++));
                 encC = this.decodeFromKey(input.charAt(i++));
@@ -61,7 +60,6 @@ module Encoding {
                 if (encD != 64) {
                     output = output + String.fromCharCode(charC);
                 }
-
             }
 
             output = this.utf8Decode(output);
@@ -83,7 +81,6 @@ module Encoding {
             input = input.replace(/\r\n/g, '\n');
 
             for (i = 0; i < input.length; i++) {
-
                 var c = input.charCodeAt(i);
 
                 if (c < 128) {
@@ -110,7 +107,6 @@ module Encoding {
             var c3 = 0;
 
             while (i < input.length) {
-
                 c = input.charCodeAt(i);
 
                 if (c < 128) {
@@ -126,7 +122,6 @@ module Encoding {
                     string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
                     i += 3;
                 }
-
             }
 
             return string;

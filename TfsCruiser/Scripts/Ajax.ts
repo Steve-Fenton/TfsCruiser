@@ -75,9 +75,9 @@ module Ajax {
                     self.isComplete = true;
                     if (self.callbacks[request.status]) {
                         var functionToCall = self.callbacks[request.status];
-                        functionToCall(<IAjaxResponse> request);
+                        functionToCall(<IAjaxResponse>request);
                     } else if (self.defaultCallback) {
-                        self.defaultCallback(<IAjaxResponse> request);
+                        self.defaultCallback(<IAjaxResponse>request);
                     }
                 }
             }

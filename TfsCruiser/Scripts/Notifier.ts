@@ -1,5 +1,4 @@
 module Notifier {
-
     export class MessageType {
         static normal: string = 'messageTypeNormal';
         static success: string = 'messageTypeSuccess';
@@ -7,7 +6,6 @@ module Notifier {
     }
 
     export class Overlay {
-
         private alertTimer;
 
         alert(message: string, messageType: string = MessageType.normal) {
