@@ -1,5 +1,5 @@
-﻿using Fenton.TeamServices.BuildRestApi;
-using Fenton.TeamServices;
+﻿using Fenton.TeamServices;
+using Fenton.TeamServices.BuildRestApi;
 using System.Web.Mvc;
 
 namespace TfsCruiser.Controllers
