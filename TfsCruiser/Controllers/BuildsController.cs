@@ -2,6 +2,7 @@
 {
     using Fenton.TeamServices;
     using Fenton.TeamServices.BuildRestApi;
+    using System.Configuration;
     using System.Web.Mvc;
 
     public class BuildsController : Controller
@@ -15,6 +16,8 @@
 
         public ActionResult Index()
         {
+            ViewBag.Theme = ConfigurationManager.AppSettings["Theme"] ?? "default";
+
             return View(_buildApi.List());
         }
 

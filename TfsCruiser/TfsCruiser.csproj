@@ -194,7 +194,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\colour-swiftpoint.css" />
     <Content Include="Content\ecto.mp3" />
+    <Content Include="Content\colour-default.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

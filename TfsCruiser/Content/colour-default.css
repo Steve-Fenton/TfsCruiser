@@ -1,0 +1,52 @@
+﻿nav li {
+    background-color: rgba(39, 48, 220, 0.80);
+}
+
+.TfsProject.Succeeded {
+    background-color: rgba(87, 174, 71, 0.80);
+}
+
+.TfsProject.OnTrack {
+    background-color: rgba(173, 255, 47, 0.80);
+}
+
+.TfsProject.PartiallySucceeded {
+    background-color: rgba(255, 106, 0, 0.80);
+}
+
+.TfsProject.Failed {
+    background-color: rgba(220, 48, 39, 0.80);
+}
+
+.TfsProject.Stopped {
+    background-color: rgba(39, 48, 220, 0.80);
+}
+
+.TfsProject.Mini.Succeeded {
+    background-color: rgba(87, 174, 71, 1);
+}
+
+.TfsProject.Mini.PartiallySucceeded {
+    background-color: rgba(255, 106, 0, 1);
+}
+
+.TfsProject.Mini.Failed {
+    background-color: rgba(220, 48, 39, 1);
+}
+
+.TfsProject.Mini.Stopped {
+    background-color: rgba(39, 48, 220, 1);
+}
+
+#NotifierOverlayAlert {
+    background-color: rgba(39, 48, 220, 0.5);
+    color: #FFF;
+}
+
+    #NotifierOverlayAlert.messageTypeError {
+        background-color: rgba(220, 48, 39, 0.5);
+    }
+
+    #NotifierOverlayAlert.messageTypeSuccess {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
