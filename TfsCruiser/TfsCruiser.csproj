@@ -194,6 +194,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\colour-dark.css" />
     <Content Include="Content\colour-swiftpoint.css" />
     <Content Include="Content\ecto.mp3" />
     <Content Include="Content\colour-default.css" />
