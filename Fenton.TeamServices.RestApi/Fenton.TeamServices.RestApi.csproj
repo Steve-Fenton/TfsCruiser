@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ApiConfig.cs" />
     <Compile Include="Build.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IApiConfig.cs" />
     <Compile Include="RestApiClient.cs" />
     <Compile Include="Test.cs" />

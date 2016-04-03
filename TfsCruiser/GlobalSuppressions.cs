@@ -1,0 +1,8 @@
+﻿// This file is used by Code Analysis to maintain SuppressMessage
+// attributes that are applied to this project.
+// Project-level suppressions either have no target or are given
+// a specific target and scoped to a namespace, type, member, etc.
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Pending>", Scope = "member", Target = "~M:System.Web.Mvc.Html.DynamicLayoutHelper.MiniTileWidth(System.Web.Mvc.HtmlHelper,System.Int32,System.Int32)~System.String")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Pending>", Scope = "member", Target = "~M:System.Web.Mvc.Html.DynamicLayoutHelper.TileHeight(System.Web.Mvc.HtmlHelper,System.Int32,System.Int32,System.Decimal,System.Int32)~System.String")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Pending>", Scope = "member", Target = "~M:System.Web.Mvc.Html.StateMapper.MapState(System.Web.Mvc.HtmlHelper,System.String)~System.String")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancies in Symbol Declarations", "RECS0154:Parameter is never used", Justification = "<Pending>", Scope = "member", Target = "~M:TfsCruiser.Startup.Configuration(Owin.IAppBuilder)")]
