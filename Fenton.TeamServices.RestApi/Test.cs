@@ -8,12 +8,12 @@ namespace Fenton.TeamServices.TestRestApi
     {
         public string Name { get; set; }
 
-        public IList<Value> TestRuns { get; set; }
+        public IList<TestRun> TestRuns { get; set; }
     }
 
     public class TestRuns
     {
-        public List<Value> value { get; set; }
+        public List<TestRun> value { get; set; }
         public int count { get; set; }
     }
 
@@ -50,7 +50,7 @@ namespace Fenton.TeamServices.TestRestApi
         public string imageUrl { get; set; }
     }
 
-    public class Value
+    public class TestRun
     {
         public int id { get; set; }
         public string name { get; set; }

@@ -49,7 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiConfig.cs" />
+    <Compile Include="Changeset.cs" />
     <Compile Include="Build.cs" />
+    <Compile Include="VersionControlApi.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IApiConfig.cs" />
     <Compile Include="RestApiClient.cs" />

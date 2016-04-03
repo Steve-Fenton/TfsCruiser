@@ -8,13 +8,13 @@ namespace Fenton.TeamServices.BuildRestApi
     {
         public string Name { get; set; }
 
-        public List<Value> Builds { get; set; }
+        public List<BuildChangeset> Builds { get; set; }
     }
 
     public class Builds
     {
         public int count { get; set; }
-        public List<Value> value { get; set; }
+        public List<BuildChangeset> value { get; set; }
     }
 
     // Auto Generated from json2csharp
@@ -121,7 +121,7 @@ namespace Fenton.TeamServices.BuildRestApi
         public bool checkoutSubmodules { get; set; }
     }
 
-    public class Value
+    public class BuildChangeset
     {
         public Links _links { get; set; }
         public int id { get; set; }
