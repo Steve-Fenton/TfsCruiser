@@ -1,7 +1,11 @@
 TfsCruiser
 ==========
 
-TFS Cruiser is a great big visible information radiator to show off the heath of your TFS builds.
+TFS Cruiser is a great big visible information radiator to show off:
+
+ - build status
+ - test run status
+ - basic code forensics (churn)
 
 UPDATED for v2.0 of the Build REST API.
 
