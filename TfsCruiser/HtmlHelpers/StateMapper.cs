@@ -18,7 +18,6 @@
                 case "stopped":
                     return "Stopped";
 
-                case "failed":
                 default:
                     return "Failed";
             }

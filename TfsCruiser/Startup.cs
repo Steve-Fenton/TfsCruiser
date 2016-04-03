@@ -1,11 +1,11 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(TfsCruiser.Startup))]
+[assembly: OwinStartup(typeof(TfsCruiser.Startup))]
 
 namespace TfsCruiser
 {
-    public partial class Startup
+    public class Startup
     {
         public void Configuration(IAppBuilder app)
         {

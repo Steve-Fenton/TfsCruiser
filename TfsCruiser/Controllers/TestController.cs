@@ -1,9 +1,9 @@
 ﻿namespace TfsCruiser.Controllers
 {
-    using Fenton.TeamServices;
-    using Fenton.TeamServices.TestRestApi;
     using System.Configuration;
     using System.Web.Mvc;
+    using Fenton.TeamServices;
+    using Fenton.TeamServices.TestRestApi;
 
     public class TestController : Controller
     {

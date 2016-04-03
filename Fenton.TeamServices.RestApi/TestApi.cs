@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fenton.TeamServices.TestRestApi
+﻿namespace Fenton.TeamServices.TestRestApi
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Newtonsoft.Json;
+
     public class TestApi
     {
         private IApiConfig _config;

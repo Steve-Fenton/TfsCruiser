@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Fenton.TeamServices.BuildRestApi
+﻿namespace Fenton.TeamServices.BuildRestApi
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Newtonsoft.Json;
+
     public class BuildApi
     {
         private readonly IApiConfig _config;

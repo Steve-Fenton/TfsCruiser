@@ -1,12 +1,12 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fenton.TeamServices
+﻿namespace Fenton.TeamServices
 {
-    public class RestApiClient
+    using System;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    public static class RestApiClient
     {
         internal static async Task<string> Get(string url, string user, string password)
         {

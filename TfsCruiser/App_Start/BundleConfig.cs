@@ -3,7 +3,7 @@
     using System.Configuration;
     using System.Web.Optimization;
 
-    public class BundleConfig
+    public static class BundleConfig
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
@@ -18,10 +18,7 @@
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/style.css"));
 
-            if (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["EnableOptimizations"]) || ConfigurationManager.AppSettings["EnableOptimizations"].Equals("true", System.StringComparison.InvariantCultureIgnoreCase))
-            {
-                BundleTable.EnableOptimizations = true;
-            }
+            BundleTable.EnableOptimizations = (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["EnableOptimizations"]) || ConfigurationManager.AppSettings["EnableOptimizations"].Equals("true", System.StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
