@@ -1,0 +1,8 @@
+﻿@model IList<Fenton.TeamServices.BuildRestApi.Churn>
+
+<ol class="churn">
+    @foreach (var churn in Model)
+    {
+        <li title="@churn.ItemName (@churn.Count changes)" class="churn-@churn.Score">@churn.DisplayName<br />@churn.Count</li>
+    }
+</ol>

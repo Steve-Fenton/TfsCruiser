@@ -1,31 +1,26 @@
-﻿*
-{
+﻿* {
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
     -webkit-transition: all 1s ease;
     transition: all 1s ease;
 }
 
-html, article
-{
+html, article {
     height: 100%;
 }
 
-nav
-{
-    height: 10%;
+nav {
+    height: 33.5px;
     overflow: hidden;
 }
 
-    nav ul
-    {
+    nav ul {
         margin: 0;
         padding: 0;
         text-align: center;
     }
 
-    nav li
-    {
+    nav li {
         display: inline-block;
         padding: 0.2em 0.5em;
         background-color: rgba(39, 48, 220, 0.80);
@@ -36,14 +31,12 @@ nav
         height: 100%;
     }
 
-main
-{
+main {
     display: block;
     height: 90%;
 }
 
-body
-{
+body {
     height: 100%;
     background-color: #000;
     color: #FFF;
@@ -53,35 +46,29 @@ body
     overflow: hidden;
 }
 
-a
-{
+a {
     text-decoration: none;
     color: #FFF;
 }
 
-    a:hover, a:focus
-    {
+    a:hover, a:focus {
         text-decoration: underline;
     }
 
-h1, h2, h3, h4, h5, h6
-{
+h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
 
-h1, h2
-{
+h1, h2 {
     display: none;
 }
 
-h3
-{
+h3 {
     margin: 0.2em 0;
     padding: 0;
 }
 
-ul
-{
+ul {
     padding: 0;
 }
 
@@ -99,51 +86,47 @@ ul
     font-size: 0.8em;
     color: rgba(255, 255, 255, 0.5);
     text-align: left;
-    padding-left:10px;
+    padding-left: 10px;
 }
 
-.TfsProject
-{
+.TfsProject {
     float: left;
-    width: 49.5%;
+    width: 50%;
     height: 35%;
     max-height: 35%;
-    margin: 0.25%;
     overflow: hidden;
     text-align: center;
     position: relative;
     background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 0, 0, 1);
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-    .TfsProject.Succeeded
-    {
+    .TfsProject.Succeeded {
         background-color: rgba(87, 174, 71, 0.80);
     }
 
-     .TfsProject.OnTrack
-    {
+    .TfsProject.OnTrack {
         background-color: rgba(173, 255, 47, 0.80);
     }
 
-    .TfsProject.PartiallySucceeded
-    {
+    .TfsProject.PartiallySucceeded {
         background-color: rgba(255, 106, 0, 0.80);
     }
 
-    .TfsProject.Failed
-    {
+    .TfsProject.Failed {
         background-color: rgba(220, 48, 39, 0.80);
     }
 
-    .TfsProject.Stopped
-    {
+    .TfsProject.Stopped {
         background-color: rgba(39, 48, 220, 0.80);
     }
 
-    .TfsProject.Mini
-    {
+    .TfsProject.Mini {
         width: 8%;
-        height: 5em;
+        height: 3em;
         border: none;
         font-size: 0.5em;
         list-style: none;
@@ -152,75 +135,96 @@ ul
         margin: 0;
         cursor: pointer;
         vertical-align: middle;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
     }
 
-    .TfsProject.Mini:hover
-    {
-        opacity: 0.3;
-    }
+        .TfsProject.Mini:hover {
+            opacity: 0.3;
+        }
 
-        .TfsProject.Mini.Succeeded
-        {
+        .TfsProject.Mini.Succeeded {
             background-color: rgba(87, 174, 71, 1);
         }
 
-        .TfsProject.Mini.PartiallySucceeded
-        {
+        .TfsProject.Mini.PartiallySucceeded {
             background-color: rgba(255, 106, 0, 1);
         }
 
-        .TfsProject.Mini.Failed
-        {
+        .TfsProject.Mini.Failed {
             background-color: rgba(220, 48, 39, 1);
         }
 
-        .TfsProject.Mini.Stopped
-        {
+        .TfsProject.Mini.Stopped {
             background-color: rgba(39, 48, 220, 1);
         }
 
-    .TfsProject h3
-    {
+    .TfsProject h3 {
         text-align: left;
         padding-left: 10px;
     }
 
-.Status
-{
+.Status {
     position: absolute;
     top: 5px;
     right: 10px;
 }
 
-    .Status.Succeeded
-    {
+    .Status.Succeeded {
         display: none;
     }
 
-#NotifierOverlayAlert
-{
+#NotifierOverlayAlert {
     background-color: rgba(39, 48, 220, 0.5);
     color: #FFF;
     text-align: center;
 }
 
-    #NotifierOverlayAlert.messageTypeError
-    {
+    #NotifierOverlayAlert.messageTypeError {
         background-color: rgba(220, 48, 39, 0.5);
     }
 
-    #NotifierOverlayAlert.messageTypeSuccess
-    {
+    #NotifierOverlayAlert.messageTypeSuccess {
         background-color: rgba(0, 0, 0, 0.5);
     }
 
-#resultsIndicator
-{
-    float:left;
+#resultsIndicator {
+    float: left;
     padding-top: 40px;
 }
 
-#centreimage
-{
-    text-align:center;
+#centreimage {
+    text-align: center;
 }
+
+.churn {
+    margin: 0;
+    padding: 0;
+}
+
+    .churn li {
+        list-style: none;
+        text-align: center;
+        display: block;
+        float: left;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 1);
+        width: 20%;
+        height: calc((100vh - 33.5px) / 5);
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .churn-1 {
+        background-color: rgba(173, 255, 47, 0.80);
+    }
+
+    .churn-2, .churn-3 {
+        background-color: rgba(255, 106, 0, 0.80);
+    }
+
+    .churn-4, .churn-5 {
+        background-color: rgba(220, 48, 39, 0.80);
+    }

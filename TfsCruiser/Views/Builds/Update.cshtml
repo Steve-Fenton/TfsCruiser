@@ -12,15 +12,12 @@
             hasFailures = true;
         }
 
-        <div class="TfsProject @Html.MapState(first.result)" title="@first.definition.name" style="height: @Html.TileHeight(Model.Count, 2, 2.5m)%;">
+        <div class="TfsProject @Html.MapState(first.result)" title="@first.definition.name" style="height: @Html.TileHeight(Model.Count, 2);">
             <h3><a href="@first.uri">@first.definition.name</a></h3>
             <div class="info">@first.buildNumber for @first.requestedFor.displayName</div>
             <div class="info">@first.finishTime</div>
-            <ul class="history">
-                @foreach (var run in project.Builds)
-                {
-                    <li class="TfsProject Mini @Html.MapState(run.result)" title="@run.finishTime - @Html.MapState(run.result)" style="width: @Html.MiniTileWidth(project.Builds.Count)%">@run.requestedFor.displayName</li>
-                }
+            <ul class="history"> @* The below loop should be on one line with no spaces (otherwise spaces appear in layout) *@
+                @foreach (var run in project.Builds) {<li class="TfsProject Mini @Html.MapState(run.result)" title="@run.finishTime - @Html.MapState(run.result)" style="width: @Html.MiniTileWidth(project.Builds.Count)">@run.requestedFor.displayName</li>}
             </ul>
           <div class="Status @Html.MapState(first.result)">
                 @Html.MapState(first.result)

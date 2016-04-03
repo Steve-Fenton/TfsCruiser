@@ -49,13 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiConfig.cs" />
-    <Compile Include="Changeset.cs" />
-    <Compile Include="Build.cs" />
+    <Compile Include="RestModel\Churn.cs" />
+    <Compile Include="RestModel\Change.cs" />
+    <Compile Include="RestModel\Changeset.cs" />
+    <Compile Include="RestModel\Build.cs" />
     <Compile Include="VersionControlApi.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IApiConfig.cs" />
     <Compile Include="RestApiClient.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="RestModel\Test.cs" />
     <Compile Include="TestApi.cs" />
     <Compile Include="BuildApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

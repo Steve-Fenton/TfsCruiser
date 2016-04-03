@@ -1,0 +1,13 @@
+﻿@model IList<Fenton.TeamServices.BuildRestApi.Churn>
+@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+@Html.Partial("Update", Model)
+
+@section Scripts {
+    <script>
+        var updateUrl = '@Url.Action("Update", "Forensics", new { })';
+    </script>
+    @Scripts.Render("~/Scripts/app")
+}

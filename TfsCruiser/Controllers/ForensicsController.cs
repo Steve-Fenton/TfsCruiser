@@ -1,7 +1,9 @@
 ﻿namespace TfsCruiser.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Configuration;
+    using System.Linq;
     using System.Web.Mvc;
     using Fenton.TeamServices;
     using Fenton.TeamServices.BuildRestApi;
@@ -19,15 +21,15 @@
         {
             ViewBag.Theme = ConfigurationManager.AppSettings["Theme"] ?? "default";
 
-            return View(GetChangesets(from, to));
+            return View(GetModel(from, to));
         }
 
         public ActionResult Update(DateTime? from, DateTime? to)
         {
-            return View(GetChangesets(from, to));
+            return View(GetModel(from, to));
         }
 
-        private System.Collections.Generic.IList<GroupedBuild> GetChangesets(DateTime? from, DateTime? to)
+        private IList<Churn> GetModel(DateTime? from, DateTime? to)
         {
             if (!from.HasValue)
             {
@@ -39,7 +41,7 @@
                 to = DateTime.UtcNow;
             }
 
-            var model = _versionControlApi.List(from.Value, to.Value);
+            var model = _versionControlApi.GetChurn(from.Value, to.Value);
 
             return model;
         }

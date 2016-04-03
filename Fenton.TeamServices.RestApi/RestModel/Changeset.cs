@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Fenton.TeamServices.BuildRestApi
 {
-    public class GroupedChangeset
+    public class Changesets
     {
         public int count { get; set; }
         public List<Changeset> value { get; set; }
