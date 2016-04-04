@@ -10,9 +10,29 @@ UPDATED for v2.0 of the Build REST API.
 
 ## Forensics
 
-/Forensics/FolderChurn
+### Folder Churn
 
-/Forensics/FileChurn
+Details the folders with the most changes over a defined period.
+
+    /Forensics/FolderChurn
+
+The default looks at the past three months.
+
+Specify Dates:
+
+    /Forensics/FolderChurn?from=2016-01-01&to=2016-02-29
+
+### File Churn
+
+Details the files with the most changes over a defined period.
+
+    /Forensics/FileChurn
+
+The default looks at the past three months.
+
+Specify Dates:
+
+    /Forensics/FileChurn?from=2016-01-01&to=2016-02-29
 
 ## General
 

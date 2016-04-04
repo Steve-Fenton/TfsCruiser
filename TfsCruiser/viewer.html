@@ -38,11 +38,36 @@
                 transition: all 1s ease;
                 overflow: hidden;
             }
+
+        #skip {
+            position: fixed;
+            right: 0;
+            top: 0;
+            background: #000;
+            color: #FFF;
+            font-size: 2em;
+            font-weight: bold;
+            padding: 0.2em 0.3em;
+            cursor: pointer;
+            opacity: 0.3;
+            width: 1em;
+            text-align: right;
+            border-bottom-left-radius: 1em;
+            -moz-transition: opacity 0.3s ease-in-out;
+            -o-transition: opacity 0.3s ease-in-out;
+            -webkit-transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+            #skip:hover {
+                opacity: 0.8;
+            }
     </style>
 </head>
 <body>
     <div id="container">
     </div>
+    <div id="skip">&gt;</div>
     <script>
         (function () {
             /*
@@ -116,10 +141,10 @@
                 publicProperties.prototype.skip = function () {
                     window.clearTimeout(_timer);
                     _pos++;
-                    this.run(_pos);
+                    this.run();
                 };
 
-                publicProperties.prototype.run = function (pos) {
+                publicProperties.prototype.run = function () {
                     if (_pos >= this.pages.length) {
                         _pos = 0;
                     }
@@ -178,8 +203,17 @@
             ];
 
             var rotisserie = new Rotisserie(pages, 'container');
-            rotisserie.enableSpaceToSkip();
             rotisserie.run();
+
+            document.getElementById('skip').onclick = function () {
+                console.log('User Skipping...');
+                var _this = this;
+                _this.style.visibility = 'hidden';
+                rotisserie.skip();
+                window.setTimeout(function () {
+                    _this.style.visibility = 'visible';
+                })
+            };
         }());
     </script>
 </body>
