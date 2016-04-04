@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.IO;
     using System.Linq;
     using Newtonsoft.Json;
@@ -9,13 +10,21 @@
     public class VersionControlApi
     {
         private readonly IApiConfig _config;
+        private readonly IList<string> _excludedFileTypes;
         private readonly int _pageSize;
-        private string _version = "1.0";
+        private readonly string _version = "1.0";
 
         public VersionControlApi(IApiConfig config)
         {
             _config = config;
             _pageSize = 50;
+
+            var fileTypeConfig = ConfigurationManager.AppSettings["ChurnExcludedFileTypes"];
+
+            if (!string.IsNullOrWhiteSpace(fileTypeConfig))
+            {
+                _excludedFileTypes = fileTypeConfig.Split(new char[] { ',' });
+            }
         }
 
         public Changesets List(DateTime from, DateTime to, int page = 0)
@@ -33,7 +42,7 @@
             return JsonConvert.DeserializeObject<Changes>(result);
         }
 
-        public IList<Churn> GetChurn(DateTime from, DateTime to)
+        public Churn GetChurn(DateTime from, DateTime to)
         {
             var churn = new Dictionary<string, int>();
 
@@ -53,6 +62,11 @@
 
                     foreach (var detail in details.value)
                     {
+                        if (_excludedFileTypes.Contains(Path.GetExtension(detail.item.path)))
+                        {
+                            continue;
+                        }
+
                         if (churn.ContainsKey(detail.item.path))
                         {
                             churn[detail.item.path]++;
@@ -68,18 +82,53 @@
             }
             while (morePages);
 
-            var churnList = churn
-                .Select(c => new Churn { ItemName = c.Key, Count = c.Value })
+            var ch = new Churn();
+
+            ch.Files = churn
+                .Select(c => new FileChurn { ItemName = c.Key, Count = c.Value })
                 .OrderByDescending(c => c.Count)
-                .Take(25)
                 .ToList();
 
-            var max = churnList.Max(c => c.Count);
+            var max = ch.Files.Max(c => c.Count);
             var group = Math.Ceiling(max / 5M);
 
-            churnList.ForEach(c => c.Score = (int)Math.Ceiling(c.Count / group));
+            ch.Files.ForEach(c => c.Score = (int)Math.Ceiling(c.Count / group));
 
-            return churnList;
+            IDictionary<string, int> folderDictionary = new Dictionary<string, int>();
+            foreach (var file in ch.Files)
+            {
+                var folder = GetFolder(file.ItemName);
+
+                if (folderDictionary.ContainsKey(folder))
+                {
+                    folderDictionary[folder] += file.Count;
+                }
+                else
+                {
+                    folderDictionary.Add(folder, 1);
+                }
+            }
+
+            ch.Folders = folderDictionary
+                .Select(f => new FolderChurn { ItemName = f.Key, Count = f.Value })
+                .OrderByDescending(c => c.Count)
+                .ToList();
+
+            max = ch.Folders.Max(c => c.Count);
+            group = Math.Ceiling(max / 5M);
+
+            ch.Folders.ForEach(c => c.Score = (int)Math.Ceiling(c.Count / group));
+
+            return ch;
+        }
+
+        private string GetFolder(string path)
+        {
+            const int depth = 4;
+
+            var parts = path.Split('/').Take(depth);
+
+            return string.Join(Path.DirectorySeparatorChar.ToString(), parts);
         }
 
         private Changes ChangeDetailsWithCaching(int changesetId)

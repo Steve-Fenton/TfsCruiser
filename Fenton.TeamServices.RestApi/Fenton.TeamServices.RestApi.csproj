@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="ApiConfig.cs" />
     <Compile Include="RestModel\Churn.cs" />
+    <Compile Include="RestModel\FolderChurn.cs" />
+    <Compile Include="RestModel\FileChurn.cs" />
     <Compile Include="RestModel\Change.cs" />
     <Compile Include="RestModel\Changeset.cs" />
     <Compile Include="RestModel\Build.cs" />

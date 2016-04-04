@@ -29,7 +29,21 @@
             return View(GetModel(from, to));
         }
 
-        private IList<Churn> GetModel(DateTime? from, DateTime? to)
+        public ActionResult FileChurn(DateTime? from, DateTime? to)
+        {
+            ViewBag.Theme = ConfigurationManager.AppSettings["Theme"] ?? "default";
+
+            return View(GetModel(from, to));
+        }
+
+        public ActionResult FolderChurn(DateTime? from, DateTime? to)
+        {
+            ViewBag.Theme = ConfigurationManager.AppSettings["Theme"] ?? "default";
+
+            return View(GetModel(from, to));
+        }
+
+        private Churn GetModel(DateTime? from, DateTime? to)
         {
             if (!from.HasValue)
             {

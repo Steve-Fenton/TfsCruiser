@@ -223,6 +223,12 @@
   <ItemGroup>
     <Content Include="Views\Forensics\Update.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Forensics\FileChurn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Forensics\FolderChurn.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
