@@ -62,3 +62,15 @@
         background-color: rgba(0, 0, 0, 0.5);
         color: #AAA;
     }
+
+.churn-1 {
+    background-color: rgba(30, 30, 30, 0.80);
+}
+
+.churn-2, .churn-3 {
+    background-color: rgba(200, 200, 200, 0.80);
+}
+
+.churn-4, .churn-5 {
+    background-color: rgba(255, 255, 255, 0.80);
+}
