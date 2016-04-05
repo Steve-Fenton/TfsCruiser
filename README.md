@@ -22,6 +22,13 @@ Specify Dates:
 
     /Forensics/FolderChurn?from=2016-01-01&to=2016-02-29
 
+Specify Folder Depth (default is 4):
+
+You can specify the depth of the folders to be used for folder churn, this allows you to aggregate churn at different levels. Depending on your code 
+organisation, you will normally find that decreasing the depth shows you "modules", and increasing it shows "projects", for example.
+
+    /Forensics/FolderChurn?folderDepth=4
+
 ### File Churn
 
 Details the files with the most changes over a defined period.

@@ -10,3 +10,5 @@
 /Fenton.TeamServices.RestApi/bin
 /Fenton.TeamServices.RestApi/obj
 /TfsCruiser/obj/Release
+/TfsCruiser/Web.Release.config
+/TfsCruiser/Web.Debug.config

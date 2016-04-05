@@ -89,6 +89,12 @@ ul {
     padding-left: 10px;
 }
 
+.num {
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 1em;
+}
+
 .TfsProject {
     float: left;
     width: 50%;

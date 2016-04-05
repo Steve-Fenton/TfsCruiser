@@ -37,12 +37,26 @@
 
         public Changes Details(int changesetId)
         {
+            // https://www.visualstudio.com/integrate/api/tfvc/changesets
             var url = $"https://{_config.Account}.visualstudio.com/defaultcollection/_apis/tfvc/changesets/{changesetId}/changes?api-version={_version}";
             var result = RestApiClient.Get(url, _config.Username, _config.Password).Result;
             return JsonConvert.DeserializeObject<Changes>(result);
         }
 
-        public Churn GetChurn(DateTime from, DateTime to)
+        public Churn GetChurn(int folderDepth, DateTime from, DateTime to)
+        {
+            Dictionary<string, int> changes = GetChangesFromApi(from, to);
+
+            int totalChanges = changes.Sum(c => c.Value);
+
+            var churn = new Churn();
+            churn.Files = GetFileChurn(changes, totalChanges);
+            churn.Folders = GetFolderChurn(folderDepth, churn.Files, totalChanges);
+
+            return churn;
+        }
+
+        private Dictionary<string, int> GetChangesFromApi(DateTime from, DateTime to)
         {
             var churn = new Dictionary<string, int>();
 
@@ -58,7 +72,7 @@
                 {
                     var changesetId = item.changesetId;
 
-                    var details = ChangeDetailsWithCaching(changesetId);
+                    var details = GetChangeDetailsWithCaching(changesetId);
 
                     foreach (var detail in details.value)
                     {
@@ -82,22 +96,34 @@
             }
             while (morePages);
 
-            var ch = new Churn();
+            return churn;
+        }
 
-            ch.Files = churn
+        private List<FileChurn> GetFileChurn(Dictionary<string, int> changes, int totalChanges)
+        {
+            var files = changes
                 .Select(c => new FileChurn { ItemName = c.Key, Count = c.Value })
                 .OrderByDescending(c => c.Count)
                 .ToList();
 
-            var max = ch.Files.Max(c => c.Count);
+            var max = files.Max(c => c.Count);
             var group = Math.Ceiling(max / 5M);
 
-            ch.Files.ForEach(c => c.Score = (int)Math.Ceiling(c.Count / group));
-
-            IDictionary<string, int> folderDictionary = new Dictionary<string, int>();
-            foreach (var file in ch.Files)
+            files.ForEach(c =>
             {
-                var folder = GetFolder(file.ItemName);
+                c.Score = (int)Math.Ceiling(c.Count / group);
+                c.Percentile = (int)Math.Round((c.Count / (decimal)totalChanges) * 100, 0);
+            });
+
+            return files;
+        }
+
+        private List<FolderChurn> GetFolderChurn(int folderDepth, IList<FileChurn> fileChurn, int totalChanges)
+        {
+            IDictionary<string, int> folderDictionary = new Dictionary<string, int>();
+            foreach (var file in fileChurn)
+            {
+                var folder = GetFolder(folderDepth, file.ItemName);
 
                 if (folderDictionary.ContainsKey(folder))
                 {
@@ -109,29 +135,31 @@
                 }
             }
 
-            ch.Folders = folderDictionary
+            var folders = folderDictionary
                 .Select(f => new FolderChurn { ItemName = f.Key, Count = f.Value })
                 .OrderByDescending(c => c.Count)
                 .ToList();
 
-            max = ch.Folders.Max(c => c.Count);
-            group = Math.Ceiling(max / 5M);
+            var max = folders.Max(c => c.Count);
+            var group = Math.Ceiling(max / 5M);
 
-            ch.Folders.ForEach(c => c.Score = (int)Math.Ceiling(c.Count / group));
+            folders.ForEach(c =>
+            {
+                c.Score = (int)Math.Ceiling(c.Count / group);
+                c.Percentile = (int)Math.Round((c.Count / (decimal)totalChanges) * 100, 0);
+            });
 
-            return ch;
+            return folders;
         }
 
-        private string GetFolder(string path)
+        private string GetFolder(int folderDepth, string path)
         {
-            const int depth = 4;
-
-            var parts = path.Split('/').Take(depth);
+            var parts = path.Split('/').Take(folderDepth);
 
             return string.Join(Path.DirectorySeparatorChar.ToString(), parts);
         }
 
-        private Changes ChangeDetailsWithCaching(int changesetId)
+        private Changes GetChangeDetailsWithCaching(int changesetId)
         {
             string dir = "c:\\Temp\\TFSCruiser";
             Directory.CreateDirectory(dir);

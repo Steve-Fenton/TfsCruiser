@@ -11,6 +11,8 @@ namespace Fenton.TeamServices.BuildRestApi
 
         public int Score { get; set; }
 
+        public int Percentile { get; set; }
+
         public string DisplayName
         {
             get
