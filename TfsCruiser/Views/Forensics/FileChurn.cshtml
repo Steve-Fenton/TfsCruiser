@@ -1,23 +1,6 @@
-﻿@model Fenton.TeamServices.BuildRestApi.Churn
+﻿@model Fenton.TeamServices.BuildRestApi.ForensicsViewModel
 @{
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
-<ol class="churn">
-    @foreach (var churn in Model.Files.Take(25))
-    {
-        <li title="@churn.ItemName (@churn.Count changes)" class="churn-@churn.Score">
-            @churn.DisplayName
-            <div class="num">
-                @if (churn.Percentile < 1)
-                {
-                    <span>&lt;1%</span>
-                }
-                else
-                {
-                    <span>@churn.Percentile%</span>
-                } (@churn.Count)
-            </div>
-    </li>
-    }
-</ol>
+@Html.Partial("FileList", Model)

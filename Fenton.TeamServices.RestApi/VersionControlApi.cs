@@ -43,22 +43,65 @@
             return JsonConvert.DeserializeObject<Changes>(result);
         }
 
-        public Churn GetChurn(int folderDepth, DateTime from, DateTime to)
+        public ForensicsViewModel GetChurn(ForensicsViewModel model)
         {
-            Dictionary<string, int> changes = GetChangesFromApi(from, to);
+            var filters = PopulateDefaults(model);
 
-            int totalChanges = changes.Sum(c => c.Value);
+            Dictionary<string, CountWithVersion> changes = null;
 
-            var churn = new Churn();
-            churn.Files = GetFileChurn(changes, totalChanges);
-            churn.Folders = GetFolderChurn(folderDepth, churn.Files, totalChanges);
+            string dir = "c:\\Temp\\TFSCruiser";
+            Directory.CreateDirectory(dir);
 
-            return churn;
+            string file = Path.Combine(dir, $"{_config.Project}-changes-{filters.From.ToString("yyyyMMdd")}-{filters.To.ToString("yyyyMMdd")}.cache");
+
+            if (File.Exists(file))
+            {
+                var contents = File.ReadAllText(file);
+                changes = JsonConvert.DeserializeObject<Dictionary<string, CountWithVersion>>(contents);
+            }
+            else
+            {
+                changes = GetChangesFromApi(filters.From, filters.To);
+                File.WriteAllText(file, JsonConvert.SerializeObject(changes));
+            }
+
+            int totalChanges = changes.Sum(c => c.Value.Count);
+
+            filters.Churn = new Churn();
+
+            if (!string.IsNullOrEmpty(filters.SelectedPath))
+            {
+                filters.Path = filters.SelectedPath;
+                filters.SelectedPath = null;
+                filters.FolderDepth++;
+
+                filters.Churn.Files = GetFileChurn(changes, totalChanges, filters.Path);
+                filters.Churn.Folders = GetFolderChurn(filters.FolderDepth, filters.Churn.Files, totalChanges, filters.Path);
+            }
+            else
+            {
+                filters.Churn.Files = GetFileChurn(changes, totalChanges);
+                filters.Churn.Folders = GetFolderChurn(filters.FolderDepth, filters.Churn.Files, totalChanges);
+            }
+
+            return filters;
         }
 
-        private Dictionary<string, int> GetChangesFromApi(DateTime from, DateTime to)
+        private ForensicsViewModel PopulateDefaults(ForensicsViewModel model)
         {
-            var churn = new Dictionary<string, int>();
+            return new ForensicsViewModel
+            {
+                FolderDepth = model.FolderDepth == default(int) ? 1 : model.FolderDepth,
+                From = model.From == default(DateTime) ? DateTime.Today.AddMonths(-3) : model.From,
+                To = model.To == default(DateTime) ? DateTime.Today : model.To,
+                Path = string.IsNullOrWhiteSpace(model.Path) ? null : model.Path,
+                SelectedPath = string.IsNullOrWhiteSpace(model.SelectedPath) ? null : model.SelectedPath,
+            };
+        }
+
+        private Dictionary<string, CountWithVersion> GetChangesFromApi(DateTime from, DateTime to)
+        {
+            var churn = new Dictionary<string, CountWithVersion>();
 
             bool morePages;
             int page = 0;
@@ -76,18 +119,20 @@
 
                     foreach (var detail in details.value)
                     {
-                        if (_excludedFileTypes.Contains(Path.GetExtension(detail.item.path)))
+                        var ext = Path.GetExtension(detail.item.path);
+                        if (_excludedFileTypes.Contains(ext))
                         {
                             continue;
                         }
 
                         if (churn.ContainsKey(detail.item.path))
                         {
-                            churn[detail.item.path]++;
+                            churn[detail.item.path].Count++;
+                            churn[detail.item.path].Version = Math.Max(detail.item.version, churn[detail.item.path].Version);
                         }
                         else
                         {
-                            churn.Add(detail.item.path, 1);
+                            churn.Add(detail.item.path, new CountWithVersion { Count = 1, Version = detail.item.version });
                         }
                     }
                 }
@@ -99,10 +144,13 @@
             return churn;
         }
 
-        private List<FileChurn> GetFileChurn(Dictionary<string, int> changes, int totalChanges)
+        private List<FileChurn> GetFileChurn(Dictionary<string, CountWithVersion> changes, int totalChanges, string path = "")
         {
+            var filePath = path.Replace('\\', '/');
+
             var files = changes
-                .Select(c => new FileChurn { ItemName = c.Key, Count = c.Value })
+                .Where(c => c.Key.StartsWith(filePath, StringComparison.InvariantCultureIgnoreCase))
+                .Select(c => new FileChurn { ItemName = c.Key, Count = c.Value.Count, Version = c.Value.Version })
                 .OrderByDescending(c => c.Count)
                 .ToList();
 
@@ -118,12 +166,17 @@
             return files;
         }
 
-        private List<FolderChurn> GetFolderChurn(int folderDepth, IList<FileChurn> fileChurn, int totalChanges)
+        private List<FolderChurn> GetFolderChurn(int folderDepth, IList<FileChurn> fileChurn, int totalChanges, string path = "")
         {
             IDictionary<string, int> folderDictionary = new Dictionary<string, int>();
             foreach (var file in fileChurn)
             {
                 var folder = GetFolder(folderDepth, file.ItemName);
+
+                if (!folder.StartsWith(path, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    continue;
+                }
 
                 if (folderDictionary.ContainsKey(folder))
                 {

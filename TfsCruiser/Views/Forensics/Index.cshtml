@@ -1,13 +1,29 @@
-﻿@model Fenton.TeamServices.BuildRestApi.Churn
+﻿@model Fenton.TeamServices.BuildRestApi.ForensicsViewModel
 @{
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
-@Html.Partial("Update", Model)
-
-@section Scripts {
-    <script>
-        var updateUrl = '@Url.Action("Update", "Forensics", new { })';
-    </script>
-    @Scripts.Render("~/Scripts/app")
-}
+<h3 class="churn-path">@Html.GetChurnFolderPath(Model.Path, Model.From, Model.To)</h3>
+<div class="split-screen">
+    <ol class="churn">
+        @foreach (var churn in Model.Churn.Folders.Take(25))
+        {
+            <li title="@churn.ItemName (@churn.Count changes)" class="churn-@churn.Score">
+                <a href="@Url.Action("Index", new { Model.From, Model.To, Model.Path, Model.FolderDepth, SelectedPath = churn.ItemName })">@Html.Raw(churn.DisplayName)</a>
+                <div class="num">
+                    @if (churn.Percentile < 1)
+                {
+                        <span>&lt;1%</span>
+                    }
+                    else
+                    {
+                        <span>@churn.Percentile%</span>
+                    } (@churn.Count)
+                </div>
+            </li>
+        }
+    </ol>
+</div>
+<div class="split-screen">
+    @Html.Partial("FileList", Model)
+</div>

@@ -90,9 +90,26 @@ ul {
 }
 
 .num {
-    font-size: 1.3em;
-    font-weight: bold;
-    padding: 1em;
+    font-size: 1.1em;
+    font-weight: normal;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+}
+
+    .num span {
+        font-weight: bold;
+    }
+
+.split-screen {
+    width: 50%;
+    height: auto;
+    overflow-y: auto;
+    float: left;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .TfsProject {
@@ -204,12 +221,20 @@ ul {
     text-align: center;
 }
 
+.churn-path {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.8em;
+}
+
 .churn {
     margin: 0;
     padding: 0;
 }
 
     .churn li {
+        position: relative;
         list-style: none;
         text-align: center;
         display: block;
@@ -223,14 +248,14 @@ ul {
         box-sizing: border-box;
     }
 
-    .churn-1 {
-        background-color: rgba(173, 255, 47, 0.80);
-    }
+.churn-1 {
+    background-color: rgba(173, 255, 47, 0.80);
+}
 
-    .churn-2, .churn-3 {
-        background-color: rgba(255, 106, 0, 0.80);
-    }
+.churn-2, .churn-3 {
+    background-color: rgba(255, 106, 0, 0.80);
+}
 
-    .churn-4, .churn-5 {
-        background-color: rgba(220, 48, 39, 0.80);
-    }
+.churn-4, .churn-5 {
+    background-color: rgba(220, 48, 39, 0.80);
+}

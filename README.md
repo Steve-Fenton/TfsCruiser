@@ -8,42 +8,47 @@ TFS Cruiser is a great big visible information radiator to show off:
 
 UPDATED for v2.0 of the Build REST API.
 
+## Build Status
+
+The build status board shows the current build status, as well as a short 
+history of your builds.
+
+The board auto-refreshes, and plays an audible alarm when a build breaks.
+
+## Test Run Status
+
+The test run status board shows the current test run status, as well as a short 
+history of your test runs.
+
+The board auto-refreshes, and plays an audible alarm when a test fails.
+
 ## Forensics
 
-### Folder Churn
+The forensics view gives you insight into areas of churn in your code base.
 
-Details the folders with the most changes over a defined period.
+Due to the nature of churn data, this view does not auto-refresh.
 
-    /Forensics/FolderChurn
+The forensics view is split into left and right panels. The left-hand panel 
+shows the folders where changes have been made. These folder tiles can be 
+used to navigate your code base.
 
-The default looks at the past three months.
+The right-hand panel shows files that are descendants of your selected area.
 
-Specify Dates:
+Higher levels of churn often suggest areas of code where there will be a 
+higher defect density - but all of the numbers and colours in this area 
+are relative to your codebase.
 
-    /Forensics/FolderChurn?from=2016-01-01&to=2016-02-29
+Forensic data is cached to reduce calls back to Visual Studio Team Services.
 
-Specify Folder Depth (default is 4):
+## Viewing
 
-You can specify the depth of the folders to be used for folder churn, this allows you to aggregate churn at different levels. Depending on your code 
-organisation, you will normally find that decreasing the depth shows you "modules", and increasing it shows "projects", for example.
-
-    /Forensics/FolderChurn?folderDepth=4
-
-### File Churn
-
-Details the files with the most changes over a defined period.
-
-    /Forensics/FileChurn
-
-The default looks at the past three months.
-
-Specify Dates:
-
-    /Forensics/FileChurn?from=2016-01-01&to=2016-02-29
+You can view the boards individually, or place them in your preferred tool 
+for displaying boards in rotation. There is also a simple HTML viewer that 
+can cycle a number of HTML pages with configurable durations (viewer.html).
 
 ## General
 
-It has been designed to work on a big screen, or projected onto the side of your building if you really want to show off.
+TFS Cruiser has been designed to work on a big screen, or projected onto the side of your building if you really want to show off.
 
 Hook it up to your build server and TFS Cruiser will display the current status and a history of your builds.
 
