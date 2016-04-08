@@ -28,19 +28,7 @@
         {
             var history = _versionControlApi.GetHistory(model);
 
-            IDictionary<string, int> topList = new Dictionary<string, int>();
-
-            foreach (var item in history)
-            {
-                if (topList.ContainsKey(item.ItemName))
-                {
-                    topList[item.ItemName] += item.ChangeCount;
-                }
-                else
-                {
-                    topList.Add(item.ItemName, item.ChangeCount);
-                }
-            }
+            IDictionary<string, int> topList = GetTopList(history);
 
             var colorList = new List<string>
             {
@@ -103,6 +91,25 @@
             var churn = _versionControlApi.GetChurn(model);
 
             return View(churn);
+        }
+
+        private static IDictionary<string, int> GetTopList(IList<ChurnHistory> history)
+        {
+            IDictionary<string, int> topList = new Dictionary<string, int>();
+
+            foreach (var item in history)
+            {
+                if (topList.ContainsKey(item.ItemName))
+                {
+                    topList[item.ItemName] += item.ChangeCount;
+                }
+                else
+                {
+                    topList.Add(item.ItemName, item.ChangeCount);
+                }
+            }
+
+            return topList;
         }
     }
 }
