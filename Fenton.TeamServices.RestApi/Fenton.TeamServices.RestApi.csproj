@@ -49,14 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiConfig.cs" />
-    <Compile Include="RestModel\Churn.cs" />
+    <Compile Include="ChurnModel\ChurnHistory.cs" />
+    <Compile Include="ChurnModel\Churn.cs" />
     <Compile Include="RestModel\CountWithVersion.cs" />
-    <Compile Include="RestModel\FolderChurn.cs" />
-    <Compile Include="RestModel\FileChurn.cs" />
+    <Compile Include="ChurnModel\FolderChurn.cs" />
+    <Compile Include="ChurnModel\FileChurn.cs" />
     <Compile Include="RestModel\Change.cs" />
     <Compile Include="RestModel\Changeset.cs" />
     <Compile Include="RestModel\Build.cs" />
-    <Compile Include="RestModel\ForensicsViewModel.cs" />
+    <Compile Include="ChurnModel\ForensicsViewModel.cs" />
     <Compile Include="VersionControlApi.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IApiConfig.cs" />

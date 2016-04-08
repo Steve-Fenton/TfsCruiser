@@ -1,7 +1,4 @@
 ﻿@model Fenton.TeamServices.BuildRestApi.ForensicsViewModel
-@{
-    Layout = "~/Views/Shared/_layout.cshtml";
-}
 
 <h3 class="churn-path">@Html.GetChurnFolderPath(Model.Path, Model.From, Model.To)</h3>
 <div class="split-screen">
@@ -12,7 +9,7 @@
                 <a href="@Url.Action("Index", new { Model.From, Model.To, Model.Path, Model.FolderDepth, SelectedPath = churn.ItemName })">@Html.Raw(churn.DisplayName)</a>
                 <div class="num">
                     @if (churn.Percentile < 1)
-                {
+                    {
                         <span>&lt;1%</span>
                     }
                     else

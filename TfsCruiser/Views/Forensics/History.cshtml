@@ -1,0 +1,8 @@
+﻿@model LineChart
+
+    <canvas id="churnhistory" width="800" height="200" style="width: 100%;"></canvas>
+    <div id="churnlegend"></div>
+    @Html.CreateChart("churnhistory", Model)
+<script>
+    document.getElementById('churnlegend').innerHTML = churnhistory_chart.generateLegend();
+</script>

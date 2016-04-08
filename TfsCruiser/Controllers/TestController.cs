@@ -1,6 +1,5 @@
 ﻿namespace TfsCruiser.Controllers
 {
-    using System.Configuration;
     using System.Web.Mvc;
     using Fenton.TeamServices;
     using Fenton.TeamServices.TestRestApi;
@@ -16,8 +15,6 @@
 
         public ActionResult Index()
         {
-            ViewBag.Theme = ConfigurationManager.AppSettings["Theme"] ?? "default";
-
             return View(_testApi.List());
         }
 

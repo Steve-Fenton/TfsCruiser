@@ -259,3 +259,24 @@ ul {
 .churn-4, .churn-5 {
     background-color: rgba(220, 48, 39, 0.80);
 }
+
+.line-legend {
+    font-size: 0.7em;
+    display: flex;
+    -ms-flex-direction: column-reverse;
+    -webkit-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+
+    .line-legend li {
+        -ms-flex: 0 0 auto;
+        -webkit-flex: 0 0 auto;
+        flex: 0 0 auto;
+    }
+
+    .line-legend span {
+        min-width: 1em;
+        min-height: 1em;
+        margin-right: 1em;
+        display: inline-block;
+    }

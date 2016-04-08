@@ -43,13 +43,80 @@
             return JsonConvert.DeserializeObject<Changes>(result);
         }
 
+        public IList<ChurnHistory> GetHistory(ForensicsViewModel model)
+        {
+            var filters = PopulateHistoryDefaults(model);
+
+            if (filters.To <= filters.From)
+            {
+                throw new ArgumentException("From date should be earlier than To date.");
+            }
+
+            IList<ChurnHistory> history = new List<ChurnHistory>();
+
+            var date = filters.From;
+
+            do
+            {
+                var weekModel = new ForensicsViewModel
+                {
+                    From = date,
+                    To = date.AddDays(7),
+                    FolderDepth = filters.FolderDepth,
+                    Path = filters.Path,
+                    SelectedPath = filters.SelectedPath
+                };
+
+                var churn = GetChurn(weekModel);
+
+                foreach (var file in churn.Churn.Files)
+                {
+                    history.Add(new ChurnHistory
+                    {
+                        ItemName = file.ItemName,
+                        ChangeCount = file.Count,
+                        StartOfWeek = date
+                    });
+                }
+
+                date = weekModel.To;
+            }
+            while (date < filters.To);
+
+            return history;
+        }
+
+        private ForensicsViewModel PopulateHistoryDefaults(ForensicsViewModel model)
+        {
+            return new ForensicsViewModel
+            {
+                FolderDepth = model.FolderDepth == default(int) ? 1 : model.FolderDepth,
+                From = model.From == default(DateTime) ? StartOfWeek(DateTime.Today.AddMonths(-3), DayOfWeek.Monday) : StartOfWeek(model.From, DayOfWeek.Monday),
+                To = model.To == default(DateTime) ? StartOfWeek(DateTime.Today, DayOfWeek.Monday) : StartOfWeek(model.To, DayOfWeek.Monday),
+                Path = string.IsNullOrWhiteSpace(model.Path) ? null : model.Path,
+                SelectedPath = string.IsNullOrWhiteSpace(model.SelectedPath) ? null : model.SelectedPath,
+            };
+        }
+
+        private DateTime StartOfWeek(DateTime dateTime, DayOfWeek startOfWeek)
+        {
+            int diff = dateTime.DayOfWeek - startOfWeek;
+
+            if (diff < 0)
+            {
+                diff += 7;
+            }
+
+            return dateTime.AddDays(-1 * diff).Date;
+        }
+
         public ForensicsViewModel GetChurn(ForensicsViewModel model)
         {
-            var filters = PopulateDefaults(model);
+            var filters = PopulateChurnDefaults(model);
 
             Dictionary<string, CountWithVersion> changes = null;
 
-            string dir = "c:\\Temp\\TFSCruiser";
+            string dir = "c:\\Temp\\TFSCruiser\\queries\\";
             Directory.CreateDirectory(dir);
 
             string file = Path.Combine(dir, $"{_config.Project}-changes-{filters.From.ToString("yyyyMMdd")}-{filters.To.ToString("yyyyMMdd")}.cache");
@@ -87,7 +154,7 @@
             return filters;
         }
 
-        private ForensicsViewModel PopulateDefaults(ForensicsViewModel model)
+        private ForensicsViewModel PopulateChurnDefaults(ForensicsViewModel model)
         {
             return new ForensicsViewModel
             {
@@ -214,10 +281,10 @@
 
         private Changes GetChangeDetailsWithCaching(int changesetId)
         {
-            string dir = "c:\\Temp\\TFSCruiser";
-            Directory.CreateDirectory(dir);
+            string changeCache = "c:\\Temp\\TFSCruiser\\changesets\\";
+            Directory.CreateDirectory(changeCache);
 
-            string file = Path.Combine(dir, $"{_config.Project}-changeset-{changesetId}.cache");
+            string file = Path.Combine(changeCache, $"{_config.Project}-{changesetId}.cache");
 
             if (File.Exists(file))
             {
