@@ -1,7 +1,7 @@
 ﻿namespace TfsCruiser
 {
-    using System.Configuration;
     using System.Web.Optimization;
+    using Fenton.Rest;
 
     public static class BundleConfig
     {
@@ -18,7 +18,7 @@
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/style.css"));
 
-            BundleTable.EnableOptimizations = (string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["EnableOptimizations"]) || ConfigurationManager.AppSettings["EnableOptimizations"].Equals("true", System.StringComparison.InvariantCultureIgnoreCase));
+            BundleTable.EnableOptimizations = Config.GetType("EnableOptimizations", false);
         }
     }
 }

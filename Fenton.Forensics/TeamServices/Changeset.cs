@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Fenton.TeamServices.BuildRestApi
+namespace Fenton.Forensics.TeamServices
 {
     public class Changesets
     {

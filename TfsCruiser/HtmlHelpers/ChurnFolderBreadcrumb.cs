@@ -16,8 +16,6 @@
             var output = new StringBuilder();
             var currentPath = string.Empty;
 
-            // ?From=01%2F06%2F2016%2000%3A00%3A00&To=04%2F06%2F2016%2000%3A00%3A00&Path=%24%5CGeronimo&FolderDepth=3&SelectedPath=%24%5CGeronimo%5CQueryProviders#$\Geronimo
-
             for (var i = 0; i < parts.Length; i++)
             {
                 var priorPath = currentPath;

@@ -1,7 +1,7 @@
 ﻿namespace TfsCruiser.Controllers
 {
     using System.Web.Mvc;
-    using Fenton.TeamServices;
+    using Fenton.Rest.TeamServices;
     using Fenton.TeamServices.BuildRestApi;
 
     public class BuildsController : Controller
@@ -10,7 +10,7 @@
 
         public BuildsController()
         {
-            _buildApi = new BuildApi(new ApiConfig());
+            _buildApi = new BuildApi(new TeamServicesApiConfig());
         }
 
         public ActionResult Index()

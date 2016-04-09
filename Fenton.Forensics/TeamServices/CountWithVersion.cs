@@ -1,5 +1,4 @@
-﻿using System;
-namespace Fenton.TeamServices.BuildRestApi
+﻿namespace Fenton.Forensics.TeamServices
 {
     public class CountWithVersion
     {

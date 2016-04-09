@@ -1,4 +1,4 @@
-﻿namespace Fenton.TeamServices
+﻿namespace Fenton.Rest.TeamServices
 {
     public interface IApiConfig
     {

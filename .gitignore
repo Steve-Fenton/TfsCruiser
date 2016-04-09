@@ -12,3 +12,7 @@
 /TfsCruiser/obj/Release
 /TfsCruiser/Web.Release.config
 /TfsCruiser/Web.Debug.config
+/Fenton.Forensics/bin/Debug
+/Fenton.Forensics/obj/Debug
+/Fenton.Rest/bin/Debug
+/Fenton.Rest/obj/Debug

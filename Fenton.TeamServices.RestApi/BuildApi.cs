@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Fenton.Rest;
+    using Fenton.Rest.TeamServices;
     using Newtonsoft.Json;
 
     public class BuildApi
@@ -14,11 +16,11 @@
             _config = config;
         }
 
+        // https://www.visualstudio.com/integrate/api/build/builds
+        // Unused filters:
+        // [&definitions={string}][&queues={string}][&buildnumber={string}][&type={string}][&minfinishtime={datetime}][&maxfinishtime={datetime}][&requestedfor={string}][&reasonfilter={string}][&tagfilters={string}][&propertyfilters={string}][&$top={int}][&continuationtoken={string}]
         public IList<GroupedBuild> List(string statusfilter = "completed")
         {
-            // https://www.visualstudio.com/integrate/api/build/builds
-            // Unused filters:
-            // [&definitions={string}][&queues={string}][&buildnumber={string}][&type={string}][&minfinishtime={datetime}][&maxfinishtime={datetime}][&requestedfor={string}][&reasonfilter={string}][&tagfilters={string}][&propertyfilters={string}][&$top={int}][&continuationtoken={string}]
             var url = $"https://{_config.Account}.visualstudio.com/defaultcollection/{_config.Project}/_apis/build/builds?api-version={_version}&statusfilter={statusfilter}";
             var result = RestApiClient.Get(url, _config.Username, _config.Password).Result;
             return MapToGroupedResult(result);

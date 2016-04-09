@@ -1,12 +1,13 @@
-﻿using System.Configuration;
-
-namespace System.Web.Mvc.Html
+﻿namespace System.Web.Mvc.Html
 {
+    using System.Configuration;
+    using Fenton.Rest;
+
     public static class ThemeHelper
     {
         public static string Theme(this HtmlHelper htmlHelper)
         {
-            return ConfigurationManager.AppSettings["Theme"] ?? "default";
+            return Config.GetType("Theme", "default");
         }
     }
 }

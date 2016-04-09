@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E8F0821C-7DFC-41CC-A3E1-58FD7F317F7C}</ProjectGuid>
+    <ProjectGuid>{6816F7E2-E81A-46D7-9A3D-089AAC06EE52}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fenton.TeamServices.RestApi</RootNamespace>
-    <AssemblyName>Fenton.TeamServices.RestApi</AssemblyName>
+    <RootNamespace>Fenton.Forensics</RootNamespace>
+    <AssemblyName>Fenton.Forensics</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -48,20 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RestModel\Build.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="RestModel\Test.cs" />
-    <Compile Include="TestApi.cs" />
-    <Compile Include="BuildApi.cs" />
+    <Compile Include="ChurnModel\Churn.cs" />
+    <Compile Include="ChurnModel\ChurnHistory.cs" />
+    <Compile Include="ChurnModel\FileChurn.cs" />
+    <Compile Include="ChurnModel\FolderChurn.cs" />
+    <Compile Include="ChurnModel\ForensicsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TeamServices\Change.cs" />
+    <Compile Include="TeamServices\Changeset.cs" />
+    <Compile Include="TeamServices\CountWithVersion.cs" />
+    <Compile Include="TeamServices\VersionControlApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0-rc3\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0-rc3\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0-rc3\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fenton.Rest\Fenton.Rest.csproj">

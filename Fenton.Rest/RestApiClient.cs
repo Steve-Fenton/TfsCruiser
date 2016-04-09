@@ -1,4 +1,4 @@
-﻿namespace Fenton.TeamServices
+﻿namespace Fenton.Rest
 {
     using System;
     using System.Net.Http;
@@ -8,7 +8,7 @@
 
     public static class RestApiClient
     {
-        internal static async Task<string> Get(string url, string user, string password)
+        public static async Task<string> Get(string url, string user, string password)
         {
             using (var client = new HttpClient())
             {
@@ -25,7 +25,7 @@
             }
         }
 
-        internal static async Task<string> Post(string url, string user, string password, string body)
+        public static async Task<string> Post(string url, string user, string password, string body)
         {
             using (var client = new HttpClient())
             {

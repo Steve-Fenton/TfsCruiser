@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Fenton.TeamServices.BuildRestApi
+namespace Fenton.Forensics
 {
     public class FileChurn
     {

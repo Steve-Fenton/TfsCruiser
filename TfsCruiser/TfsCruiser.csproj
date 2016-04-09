@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TfsCruiser</RootNamespace>
     <AssemblyName>TfsCruiser</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -178,6 +178,14 @@
     <TypeScriptCompile Include="Scripts\references.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fenton.Forensics\Fenton.Forensics.csproj">
+      <Project>{6816f7e2-e81a-46d7-9a3d-089aac06ee52}</Project>
+      <Name>Fenton.Forensics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fenton.Rest\Fenton.Rest.csproj">
+      <Project>{fa49ccef-0dc9-4433-b6b9-baafbcf1677c}</Project>
+      <Name>Fenton.Rest</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fenton.TeamServices.RestApi\Fenton.TeamServices.RestApi.csproj">
       <Project>{e8f0821c-7dfc-41cc-a3e1-58fd7f317f7c}</Project>
       <Name>Fenton.TeamServices.RestApi</Name>

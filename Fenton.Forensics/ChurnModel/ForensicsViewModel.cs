@@ -1,4 +1,4 @@
-﻿namespace Fenton.TeamServices.BuildRestApi
+﻿namespace Fenton.Forensics
 {
     using System;
 

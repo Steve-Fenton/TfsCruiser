@@ -1,11 +1,12 @@
-﻿namespace Fenton.TeamServices.BuildRestApi
+﻿namespace Fenton.Forensics.TeamServices
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.IO;
     using System.Linq;
     using Newtonsoft.Json;
+    using Fenton.Rest;
+    using Fenton.Rest.TeamServices;
 
     public class VersionControlApi
     {
@@ -19,7 +20,7 @@
             _config = config;
             _pageSize = 50;
 
-            var fileTypeConfig = ConfigurationManager.AppSettings["ChurnExcludedFileTypes"];
+            var fileTypeConfig = Config.GetType("ChurnExcludedFileTypes", string.Empty);
 
             if (!string.IsNullOrWhiteSpace(fileTypeConfig))
             {

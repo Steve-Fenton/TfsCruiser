@@ -5,8 +5,9 @@
     using System.Linq;
     using System.Web.Mvc;
     using Chart.Mvc.ComplexChart;
-    using Fenton.TeamServices;
-    using Fenton.TeamServices.BuildRestApi;
+    using Fenton.Forensics;
+    using Fenton.Forensics.TeamServices;
+    using Fenton.Rest.TeamServices;
 
     public class ForensicsController : Controller
     {
@@ -14,7 +15,7 @@
 
         public ForensicsController()
         {
-            _versionControlApi = new VersionControlApi(new ApiConfig());
+            _versionControlApi = new VersionControlApi(new TeamServicesApiConfig());
         }
 
         public ActionResult Index(ForensicsViewModel model)
